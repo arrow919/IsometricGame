@@ -1,6 +1,4 @@
 package mainstuff;
-import java.awt.Point;
-import java.util.ArrayList;
 
 import mapstuff.Map;
 import mapstuff.Tiles;
@@ -14,9 +12,6 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-import entitystuff.Entity;
-
-
 public class GameStart extends BasicGame {
 	// Size of the screen.
 	public static final int screenTileWidth = 40, screenTileHeight = 40;
@@ -28,7 +23,7 @@ public class GameStart extends BasicGame {
 	private Image background;
 	// The graphics of the map buffer.
 	private Graphics bgGraphics;
-	
+
 	public static final int TICK_TIME = 50;
 
 	// Only constructor, calls super().
@@ -39,18 +34,16 @@ public class GameStart extends BasicGame {
 
 	// Render the game world.
 	@Override
-	public void render(GameContainer container, Graphics g) throws SlickException {
-		if (!(xLoc <= -40 || yLoc <= -40 || xLoc > map.getWidth() || yLoc >= map.getHeight())) {
-			background.draw();
-		}
-		map.entities.renderEntities(xLoc, yLoc, g);
+	public void render(GameContainer container, Graphics g)
+			throws SlickException {
+		map.render(xLoc, yLoc, g);
 	}
 
 	// Method is called before any rendering or updating happens.
 	@Override
 	public void init(GameContainer container) throws SlickException {
 		startTime = System.currentTimeMillis();
-		//TODO Initialize the map!!
+		// TODO Initialize the map!!
 		Tiles.loadTiles();
 		background = new Image(640, 640);
 		bgGraphics = background.getGraphics();
@@ -64,12 +57,14 @@ public class GameStart extends BasicGame {
 	private long startTime;
 
 	@Override
-	public void update(GameContainer container, int delta) throws SlickException {
-		float updatesPerSecond = logicalUpdates / ((System.currentTimeMillis() - startTime) / 1000f);
+	public void update(GameContainer container, int delta)
+			throws SlickException {
+		float updatesPerSecond = logicalUpdates
+				/ ((System.currentTimeMillis() - startTime) / 1000f);
 		if (updatesPerSecond < targetUpdatesPerSecond) {
 			map.entities.updateAll(map);
 			Input input = container.getInput();
-			//TODO do update stuff!!
+			// TODO do update stuff!!
 			logicalUpdates++;
 		}
 		System.out.println("Logical updates per second: " + updatesPerSecond);
@@ -80,9 +75,10 @@ public class GameStart extends BasicGame {
 		bgGraphics.clear();
 		for (int xCount = 0; xCount < 30; xCount++) {
 			for (int yCount = 0; yCount < 30; yCount++) {
-				//TODO Figure out how I'm gonna draw the map haha
+				// TODO Figure out how I'm gonna draw the map haha
 				int tileType = map.getTile(xCount + xLoc, yCount + yLoc);
-				//bgGraphics.drawImage(Tiles.getTileImage(tileType), xCount * 16, yCount * 16);
+				// bgGraphics.drawImage(Tiles.getTileImage(tileType), xCount *
+				// 16, yCount * 16);
 
 			}
 		}
@@ -93,30 +89,14 @@ public class GameStart extends BasicGame {
 	@Override
 	public void keyPressed(int key, char c) {
 		super.keyPressed(key, c);
-		//TODO Handle key press
+		// TODO Handle key press
 	}
 
 	@Override
 	public void keyReleased(int key, char c) {
 		super.keyReleased(key, c);
-		//TODO Handle key release
+		// TODO Handle key release
 	}
-
-	@Override
-	public void mouseClicked(int button, int x, int y, int clickCount) {
-		// TODO Auto-generated method stub
-		super.mouseClicked(button, x, y, clickCount);
-		//TODO I'm doubtful I'll use mouse clicks
-		
-	}
-
-	private ArrayList<Point> dragTempSelect = new ArrayList<Point>();
-	private Color dragTempSelectColor;
-	private Color orange = new Color(255, 100, 0, 120);
-	private Color yellow = new Color(255, 255, 0, 120);
-
-	
-
 
 	// The main method of the whole thing.
 	public static void main(String[] args) {
