@@ -10,8 +10,8 @@ public abstract class Entity {
 	}
 
 	public Entity(long id) {
-		this.id=id;
+		this.id = id;
 	}
 
-	public abstract void doStep();
+	public abstract void logicalUpdate();
 }

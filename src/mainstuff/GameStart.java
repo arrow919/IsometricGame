@@ -3,6 +3,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import mapstuff.Map;
+import mapstuff.Tiles;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
@@ -12,7 +13,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
 
 import entitystuff.Entity;
 
@@ -28,10 +28,8 @@ public class GameStart extends BasicGame {
 	private Image background;
 	// The graphics of the map buffer.
 	private Graphics bgGraphics;
-	// The id of the player at this client.
-	private int playerID;
-
-	public static final int TICK_TIME = 100;
+	
+	public static final int TICK_TIME = 50;
 
 	// Only constructor, calls super().
 	public GameStart() {
@@ -45,20 +43,18 @@ public class GameStart extends BasicGame {
 		if (!(xLoc <= -40 || yLoc <= -40 || xLoc > map.getWidth() || yLoc >= map.getHeight())) {
 			background.draw();
 		}
-		map.entities.renderEntities(xLoc, yLoc, g, map.kingdoms[playerID].selectedEntities);
+		map.entities.renderEntities(xLoc, yLoc, g);
 	}
 
 	// Method is called before any rendering or updating happens.
 	@Override
 	public void init(GameContainer container) throws SlickException {
-		// TODO Auto-generated method stub
 		startTime = System.currentTimeMillis();
-		//map = new MapMaker(64, 64, 4).createMap();
-		Tiles.setImages(new SpriteSheet("/res/terrain.png", 16, 16));
+		//TODO Initialize the map!!
+		Tiles.loadTiles();
 		background = new Image(640, 640);
 		bgGraphics = background.getGraphics();
 		bgGraphics.setColor(Color.white);
-		playerID = 0;
 		redrawBackground();
 	}
 
@@ -72,37 +68,8 @@ public class GameStart extends BasicGame {
 		float updatesPerSecond = logicalUpdates / ((System.currentTimeMillis() - startTime) / 1000f);
 		if (updatesPerSecond < targetUpdatesPerSecond) {
 			map.entities.updateAll(map);
-			// TODO Auto-generated method stub
 			Input input = container.getInput();
-			if (input.isKeyDown(Input.KEY_LEFT)) {
-				xLoc -= 1;
-				map.redrawMap = true;
-				updateMouseDragSelect(input.getMouseX()/16+xLoc,input.getMouseY()/16+yLoc);
-			}
-			if (input.isKeyDown(Input.KEY_RIGHT)) {
-				xLoc += 1;
-				map.redrawMap = true;
-				updateMouseDragSelect(input.getMouseX()/16+xLoc,input.getMouseY()/16+yLoc);
-			}
-			if (input.isKeyDown(Input.KEY_DOWN)) {
-				yLoc += 1;
-				map.redrawMap = true;
-				updateMouseDragSelect(input.getMouseX()/16+xLoc,input.getMouseY()/16+yLoc);
-			}
-			if (input.isKeyDown(Input.KEY_UP)) {
-				yLoc -= 1;
-				map.redrawMap = true;
-				updateMouseDragSelect(input.getMouseX()/16+xLoc,input.getMouseY()/16+yLoc);
-			}
-			if (map.redrawMap) {
-				redrawBackground();
-				map.redrawMap = false;
-			}
-			for (int count = 0; count < map.kingdoms.length; count++) {
-				if (map.kingdoms[count] != null) {
-					map.kingdoms[count].mineQueue.matchEntitiesToMineQueue(map);
-				}
-			}
+			//TODO do update stuff!!
 			logicalUpdates++;
 		}
 		System.out.println("Logical updates per second: " + updatesPerSecond);
@@ -111,30 +78,12 @@ public class GameStart extends BasicGame {
 	// Called when the background needs to be redrawn.
 	private void redrawBackground() {
 		bgGraphics.clear();
-		for (int xCount = 0; xCount < 40; xCount++) {
-			for (int yCount = 0; yCount < 40; yCount++) {
+		for (int xCount = 0; xCount < 30; xCount++) {
+			for (int yCount = 0; yCount < 30; yCount++) {
+				//TODO Figure out how I'm gonna draw the map haha
 				int tileType = map.getTile(xCount + xLoc, yCount + yLoc);
+				//bgGraphics.drawImage(Tiles.getTileImage(tileType), xCount * 16, yCount * 16);
 
-				if (tileType != Tiles.EMPTY_ID && tileType != Tiles.OUTSIDE_ID) {
-					bgGraphics.drawImage(Tiles.getTileTexture(tileType), xCount * 16, yCount * 16);
-
-				} else if (tileType == Tiles.EMPTY_ID) {
-					bgGraphics.setColor(Color.white);
-					bgGraphics.fillRect(xCount * 16, yCount * 16, 16, 16);
-				}
-				
-				if (dragTempSelect.contains(new Point(xCount + xLoc, yCount + yLoc))) {
-					bgGraphics.setColor(dragTempSelectColor);
-					bgGraphics.fillRect(xCount * 16, yCount * 16, 16, 16);
-
-				} else if (map.kingdoms[playerID].mineQueue.currentlyMiningContains(new Point(xCount + xLoc, yCount + yLoc))) {
-
-					bgGraphics.setColor(new Color(0, 255, 0, 120));
-				} else if (map.kingdoms[playerID].mineQueue.currentlyNotMiningContains(new Point(xCount + xLoc, yCount + yLoc))) {
-
-					bgGraphics.setColor(new Color(255, 0, 0, 120));
-					bgGraphics.fillRect(xCount * 16, yCount * 16, 16, 16);
-				}
 			}
 		}
 		bgGraphics.flush();
@@ -143,70 +92,22 @@ public class GameStart extends BasicGame {
 
 	@Override
 	public void keyPressed(int key, char c) {
-		// TODO Auto-generated method stub
 		super.keyPressed(key, c);
-		if (key == Input.KEY_LSHIFT || key == Input.KEY_RSHIFT) {
-			InputWrapper.shift = true;
-		} else if (key == Input.KEY_M && InputWrapper.shift) {
-			map.entities.add(EntityFactory.createEntity(EntityFactory.ENTITY_MINER, 11, 11, playerID));
-		} else if (key == Input.KEY_LCONTROL || key == Input.KEY_RCONTROL) {
-			InputWrapper.ctrl = true;
-		}
+		//TODO Handle key press
 	}
 
 	@Override
 	public void keyReleased(int key, char c) {
-		// TODO Auto-generated method stub
 		super.keyReleased(key, c);
-		if (key == Input.KEY_LSHIFT || key == Input.KEY_RSHIFT) {
-			InputWrapper.shift = false;
-		} else if (key == Input.KEY_LCONTROL || key == Input.KEY_RCONTROL) {
-			InputWrapper.ctrl = false;
-		}
+		//TODO Handle key release
 	}
 
 	@Override
 	public void mouseClicked(int button, int x, int y, int clickCount) {
 		// TODO Auto-generated method stub
 		super.mouseClicked(button, x, y, clickCount);
-		if (button == Input.MOUSE_LEFT_BUTTON) {
-			if (!InputWrapper.ctrl) {
-				int pointX = x / 16 + xLoc;
-				int pointY = y / 16 + yLoc;
-				byte tileType = map.getTile(pointX, pointY);
-				if (tileType != Tiles.OUTSIDE_ID) {
-					if (!Tiles.mineable(tileType)) {
-						Entity entityClicked = map.entities.getEntityAt(pointX, pointY);
-						if (entityClicked != null) {
-							if (map.kingdoms[playerID].selectedEntities.contains(entityClicked)) {
-								if (InputWrapper.shift) {
-									map.kingdoms[playerID].selectedEntities.remove(entityClicked);
-								} else {
-									map.kingdoms[playerID].selectedEntities.clear();
-									map.kingdoms[playerID].selectedEntities.add(entityClicked);
-								}
-							} else {
-								if (!InputWrapper.shift) {
-									map.kingdoms[playerID].selectedEntities.clear();
-									map.kingdoms[playerID].selectedEntities.add(entityClicked);
-								} else {
-									map.kingdoms[playerID].selectedEntities.add(entityClicked);
-								}
-							}
-
-						}
-					}
-				}
-			} else {
-				int pointX = x / 16 + xLoc;
-				int pointY = y / 16 + yLoc;
-				byte tileType = map.getTile(pointX, pointY);
-				if (tileType != Tiles.OUTSIDE_ID && Tiles.mineable(tileType)) {
-					map.kingdoms[playerID].mineQueue.click(new Point(pointX, pointY));
-					map.redrawMap = true;
-				}
-			}
-		}
+		//TODO I'm doubtful I'll use mouse clicks
+		
 	}
 
 	private ArrayList<Point> dragTempSelect = new ArrayList<Point>();
@@ -214,74 +115,8 @@ public class GameStart extends BasicGame {
 	private Color orange = new Color(255, 100, 0, 120);
 	private Color yellow = new Color(255, 255, 0, 120);
 
-	private void updateMouseDragSelect(int currentXTile, int currentYTile) {
-		dragTempSelect.clear();
-		for (int xCount = InputWrapper.mouseDownTileX; xCount < currentXTile; xCount++) {
-			for (int yCount = InputWrapper.mouseDownTileX; yCount < currentYTile; yCount++) {
-				byte tileType = map.getTile(xCount, yCount);
-				if (tileType != Tiles.EMPTY_ID && tileType != Tiles.OUTSIDE_ID) {
-					dragTempSelect.add(new Point(xCount, yCount));
-					map.redrawMap = true;
-				}
-			}
-		}
-		if (map.kingdoms[playerID].mineQueue.contains(new Point(InputWrapper.mouseDownTileX, InputWrapper.mouseDownTileY))) {
-			dragTempSelectColor = yellow;
-		} else {
-			dragTempSelectColor = orange;
-		}
-	}
+	
 
-	@Override
-	public void mouseDragged(int oldx, int oldy, int newx, int newy) {
-		// TODO Completely rework this mechanic
-		super.mouseDragged(oldx, oldy, newx, newy);
-		int currentXTile = newx / 16 + xLoc;
-		int currentYTile = newy / 16 + yLoc;
-		if (InputWrapper.mouseDownTileX > currentXTile) {
-			int temp = InputWrapper.mouseDownTileX;
-			InputWrapper.mouseDownTileX = currentXTile;
-			currentXTile = temp;
-		}
-		if (InputWrapper.mouseDownTileY > currentYTile) {
-			int temp = InputWrapper.mouseDownTileY;
-			InputWrapper.mouseDownTileY = currentYTile;
-			currentYTile = temp;
-		}
-		updateMouseDragSelect(currentXTile, currentYTile);
-	}
-
-	@Override
-	public void mouseReleased(int button, int x, int y) {
-		super.mouseReleased(button, x, y);
-		if (!dragTempSelect.isEmpty()) {
-			if (dragTempSelectColor == orange) {
-				for (Point point : dragTempSelect) {
-					if (!map.kingdoms[playerID].mineQueue.contains(new Point(point.x, point.y))) {
-						map.kingdoms[playerID].mineQueue.moveTileToNotBeingMined(point);
-					}
-				}
-			} else {
-				for (Point point : dragTempSelect) {
-					if (map.kingdoms[playerID].mineQueue.contains(new Point(point.x, point.y))) {
-						map.kingdoms[playerID].mineQueue.removeTileFromBoth(point);
-					}
-				}
-			}
-			map.redrawMap = true;
-			dragTempSelect.clear();
-		}
-	}
-
-	@Override
-	public void mousePressed(int button, int x, int y) {
-		super.mousePressed(button, x, y);
-		InputWrapper.mouseDownX = x;
-		InputWrapper.mouseDownY = y;
-		InputWrapper.mouseDownTileX = (int) x / 16 + xLoc;
-		InputWrapper.mouseDownTileY = (int) y / 16 + yLoc;
-		InputWrapper.ctrlDownOnMouseDown = InputWrapper.ctrl;
-	}
 
 	// The main method of the whole thing.
 	public static void main(String[] args) {

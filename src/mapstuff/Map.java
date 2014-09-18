@@ -11,7 +11,7 @@ public class Map {
 		entities = new EntityList();
 	}
 
-	public int tileAt(int x, int y) {
+	public int getTile(int x, int y) {
 		return tiles[x][y];
 	}
 
