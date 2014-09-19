@@ -7,26 +7,34 @@ public class Tiles {
 	private Tiles() {
 
 	}
-	//TODO Add tile types
-	public static final byte OUTSIDE_ID = -1,  GRASS = 1;
-	public static Image grassImage; // TODO Template for sprite images
+
+	// TODO Add tile types
+	public static final int OUTSIDE_ID = -1, GRASS_BASE = 1;
+	public static Image grassBaseImage; // TODO Template for sprite images
 
 	public static Image getTileImage(int type) {
 		switch (type) {
-		case GRASS:
-			return grassImage;
+		case GRASS_BASE:
+			return grassBaseImage;
 		default:
-			return null;//Should never get here
+			return null;// Should never get here
 		}
 	}
 
 	public static void loadTiles() {
 		try {
-			grassImage=new Image("/res/land/PNG/grass.png");
+			grassBaseImage = new Image("/res/land/grass.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
+	public int yOffsetFor(int tileType) {
+		switch (tileType) {
+		case GRASS_BASE:
+			return 0;
+		}
+		return 0;
+	}
 }

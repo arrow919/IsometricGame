@@ -4,7 +4,7 @@ import misc.Properties;
 
 public abstract class Entity {
 	private final long id;
-
+	private int x, y;
 	public Entity(long id, Properties props) {
 		this.id = id;
 	}
