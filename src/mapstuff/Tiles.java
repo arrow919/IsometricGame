@@ -23,7 +23,7 @@ public class Tiles {
 
 	public static void loadTiles() {
 		try {
-			grassBaseImage = new Image("/res/land/PNG/grass.png");
+			grassBaseImage = new Image("/res/land/grass.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

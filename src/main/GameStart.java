@@ -1,5 +1,11 @@
 package main;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import mapstuff.Map;
 import mapstuff.Tiles;
 
@@ -11,6 +17,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+
+import Input.InputWrapper;
 
 public class GameStart extends BasicGame {
 	// Size of the screen.
@@ -43,12 +51,34 @@ public class GameStart extends BasicGame {
 	@Override
 	public void init(GameContainer container) throws SlickException {
 		startTime = System.currentTimeMillis();
-		// TODO Initialize the map!!
+		try {
+			loadMap();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Tiles.loadTiles();
 		background = new Image(640, 640);
 		bgGraphics = background.getGraphics();
 		bgGraphics.setColor(Color.white);
 		redrawBackground();
+	}
+
+	public void loadMap() throws IOException {
+		// TODO map loading stuff
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader("res/maps/1.txt"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ArrayList<String> lines = new ArrayList<String>();
+		String curLine;
+		while ((curLine = br.readLine()) != null) {
+			lines.add(curLine);
+		}
+		String[] chars = lines.get(0).split(" ");
 	}
 
 	// Called when an update to the game is required.
@@ -89,13 +119,15 @@ public class GameStart extends BasicGame {
 	@Override
 	public void keyPressed(int key, char c) {
 		super.keyPressed(key, c);
-		// TODO Handle key press
+		// TODO Insert more key presses here!!
+		InputWrapper.keyEvent(true, key);
 	}
 
 	@Override
 	public void keyReleased(int key, char c) {
 		super.keyReleased(key, c);
-		// TODO Handle key release
+		// TODO Handle more key releases here!!
+		InputWrapper.keyEvent(false, key);
 	}
 
 	// The main method of the whole thing.
