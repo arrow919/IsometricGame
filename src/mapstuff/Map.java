@@ -1,7 +1,10 @@
 package mapstuff;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Graphics;
 
+import entitystuff.Entity;
 import entitystuff.EntityList;
 
 public class Map {
@@ -12,6 +15,11 @@ public class Map {
 	public Map(int[][] data, Boundaries bounds) {
 		this.tiles = data;
 		entities = new EntityList();
+		this.bounds = bounds;
+	}
+	public Map(int[][] data, Boundaries bounds, ArrayList<Entity> entities) {
+		this.tiles = data;
+		this.entities = new EntityList();
 		this.bounds = bounds;
 	}
 	public void render(int xLoc, int yLoc, Graphics g){

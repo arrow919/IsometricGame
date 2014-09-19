@@ -78,7 +78,12 @@ public class GameStart extends BasicGame {
 		while ((curLine = br.readLine()) != null) {
 			lines.add(curLine);
 		}
-		String[] chars = lines.get(0).split(" ");
+		curLine=null;
+		String[] dimStrings = lines.get(0).split(" ");
+		int[] data = { Integer.parseInt(dimStrings[0]),
+				Integer.parseInt(dimStrings[1]) };
+		int[][] mapData = new int[data[0]][data[1]];
+		//TODO finish map loading!!
 	}
 
 	// Called when an update to the game is required.
