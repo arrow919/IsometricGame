@@ -1,0 +1,13 @@
+name=void id=0 classname=Tile northline=999,0 westline=999,0 offset=0
+# comment lines start with a # 
+# each tile is its own line
+# each property is space separated and equal assigned with the left being name and right being value
+# this is the first tile (the most basic, flat grass type)
+name=grass id=1 classname=Tile northline=0,0 westline=0,0, offset=0
+#name is the file name (+.png) in the tileTextures folder
+#id don't change these!! just increment each tile by 11
+#classname is Tile if theres no extra features, but some tiles (ocean or other tiles that are dynamic) need a class name associated
+#- (they must extend Tile)
+#northline and westline are the slope,y intersect going north and west. it's for finding out if an entity can enter the tile and the
+#- render location of the entity
+#offset is the y offset of the tile on screen (eg for taller tiles)

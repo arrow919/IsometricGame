@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import mapstuff.Map;
+import mapstuff.Tile;
 import mapstuff.Tiles;
 
 import org.newdawn.slick.AppGameContainer;
@@ -68,7 +69,7 @@ public class GameStart extends BasicGame {
 		// TODO map loading stuff
 		BufferedReader br = null;
 		try {
-			br = new BufferedReader(new FileReader("res/maps/1.txt"));
+			br = new BufferedReader(new FileReader("res/maps/1.dat"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -137,6 +138,7 @@ public class GameStart extends BasicGame {
 
 	// The main method of the whole thing.
 	public static void main(String[] args) {
+		System.out.println(Tile.class.getName());
 		AppGameContainer app = null;
 		try {
 			app = new AppGameContainer(new GameStart());

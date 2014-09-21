@@ -8,6 +8,7 @@ import entitystuff.Entity;
 import entitystuff.EntityList;
 
 public class Map {
+	public static enum Direction {NORTH,SOUTH,EAST,WEST};
 	public final EntityList entities;
 	private int[][] tiles;
 	private final Boundaries bounds;
@@ -22,6 +23,13 @@ public class Map {
 		this.entities = new EntityList();
 		this.bounds = bounds;
 	}
+	
+	public Map(int[][] data){
+		this.tiles=data;
+		entities=new EntityList();
+		bounds = new Boundaries(0,0,tiles.length,tiles[0].length);
+	}
+	
 	public void render(int xLoc, int yLoc, Graphics g){
 		
 	}
@@ -37,15 +45,6 @@ public class Map {
 	 *            the y index of the tile
 	 * @return whether or not the tile is walkable
 	 */
-	public boolean tileWalkable(int x, int y) { // TODO add any tiles data to
-												// see if their walkable to this
-												// method
-		switch (tiles[x][y]) {
-		case 0:
-			return false;
-		}
-		return false;
-	}
 
 	public int getWidth() {
 		return tiles.length;
