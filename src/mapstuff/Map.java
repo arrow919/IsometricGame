@@ -3,48 +3,57 @@ package mapstuff;
 import java.util.ArrayList;
 
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 
 import entitystuff.Entity;
 import entitystuff.EntityList;
 
 public class Map {
-	public static enum Direction {NORTH,SOUTH,EAST,WEST};
+	public static enum Direction {
+		NORTH, SOUTH, EAST, WEST
+	};
+
 	public final EntityList entities;
 	private int[][] tiles;
-	private final Boundaries bounds;
 
-	public Map(int[][] data, Boundaries bounds) {
+	public Map(int[][] data) {
 		this.tiles = data;
 		entities = new EntityList();
-		this.bounds = bounds;
 	}
-	public Map(int[][] data, Boundaries bounds, ArrayList<Entity> entities) {
+
+	public Map(int[][] data, EntityList entities) {
 		this.tiles = data;
-		this.entities = new EntityList();
-		this.bounds = bounds;
+		this.entities = entities;
 	}
-	
-	public Map(int[][] data){
-		this.tiles=data;
-		entities=new EntityList();
-		bounds = new Boundaries(0,0,tiles.length,tiles[0].length);
+
+	private void init() {
+		try {
+			mapImage = new Image(1000, 640);
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		chunks = new Chunk[5][5];
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				chunks[i][j] = new Chunk(null, -1, -1);
+			}
+		}
 	}
-	
-	public void render(int xLoc, int yLoc, Graphics g){
+
+	private Chunk[][] chunks;
+	private Image mapImage;
+
+	public void render(int xLoc, int yLoc, double moveRatio, Direction facing,
+			Graphics g) {
+		// TODO write the render method
 		
 	}
+
 	public int getTile(int x, int y) {
 		return tiles[x][y];
 	}
-
-	/**
-	 * 
-	 * @param x
-	 *            the x index of the tile
-	 * @param y
-	 *            the y index of the tile
-	 * @return whether or not the tile is walkable
-	 */
 
 	public int getWidth() {
 		return tiles.length;
@@ -61,21 +70,16 @@ public class Map {
 	 * @author RevNate
 	 * 
 	 */
-	public static class Boundaries {
-		/**
-		 * Give th
-		 * 
-		 * @param xLow
-		 *            The west most (upper-left) tile that can be walked in.
-		 * @param xHigh
-		 *            The east most (lower-right) tile that can be walked in.
-		 * @param yLow
-		 *            The north most (upper-right) tile that can be walked in.
-		 * @param yHigh
-		 *            The South most (lower-left) tile that can be walked in.
-		 */
-		public Boundaries(int xLow, int xHigh, int yLow, int yHigh) {
 
+	private class Chunk {
+		public Image img;
+		public int chunkx;
+		public int chunky;
+
+		public Chunk(Image img, int chunkx, int chunky) {
+			this.img = img;
+			this.chunkx = chunkx;
+			this.chunky = chunky;
 		}
 	}
 }

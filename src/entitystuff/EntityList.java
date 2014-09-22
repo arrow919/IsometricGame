@@ -1,5 +1,6 @@
 package entitystuff;
 
+import java.io.BufferedReader;
 import java.util.ArrayList;
 
 import mapstuff.Map;
@@ -18,7 +19,9 @@ public class EntityList {
 		next = 0;
 		entities = new ArrayList<Entity>();
 	}
-
+	public EntityList(BufferedReader br) {
+		entities = new ArrayList<Entity>();
+	}
 	public Entity createEntity(Entities type, Properties properties) {
 		Entity entity = null;
 		switch (type) {

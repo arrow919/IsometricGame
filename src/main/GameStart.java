@@ -59,10 +59,6 @@ public class GameStart extends BasicGame {
 			e.printStackTrace();
 		}
 		Tiles.loadTiles();
-		background = new Image(640, 640);
-		bgGraphics = background.getGraphics();
-		bgGraphics.setColor(Color.white);
-		redrawBackground();
 	}
 
 	public void loadMap() throws IOException {
@@ -74,17 +70,21 @@ public class GameStart extends BasicGame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ArrayList<String> lines = new ArrayList<String>();
+		ArrayList<int[]> lines = new ArrayList<int[]>();
 		String curLine;
 		while ((curLine = br.readLine()) != null) {
-			lines.add(curLine);
+			String[] numString = curLine.split(" ");
+			int[] nums = new int[numString.length];
+			for (int count = 0; count < nums.length; count++) {
+				nums[count] = Integer.parseInt(numString[count]);
+			}
+			lines.add(nums);
 		}
-		curLine=null;
-		String[] dimStrings = lines.get(0).split(" ");
-		int[] data = { Integer.parseInt(dimStrings[0]),
-				Integer.parseInt(dimStrings[1]) };
-		int[][] mapData = new int[data[0]][data[1]];
-		//TODO finish map loading!!
+		int[][] data = new int[lines.size()][lines.get(0).length];
+		for (int count = 0; count < data.length; count++) {
+			data[count] = lines.get(count);
+		}
+		map = new Map(data);
 	}
 
 	// Called when an update to the game is required.
@@ -104,22 +104,6 @@ public class GameStart extends BasicGame {
 			logicalUpdates++;
 		}
 		System.out.println("Logical updates per second: " + updatesPerSecond);
-	}
-
-	// Called when the background needs to be redrawn.
-	private void redrawBackground() {
-		bgGraphics.clear();
-		for (int xCount = 0; xCount < 30; xCount++) {
-			for (int yCount = 0; yCount < 30; yCount++) {
-				// TODO Figure out how I'm gonna draw the map haha
-				int tileType = map.getTile(xCount + xLoc, yCount + yLoc);
-				// bgGraphics.drawImage(Tiles.getTileImage(tileType), xCount *
-				// 16, yCount * 16);
-
-			}
-		}
-		bgGraphics.flush();
-
 	}
 
 	@Override
@@ -149,7 +133,7 @@ public class GameStart extends BasicGame {
 		try {
 			// app.setMinimumLogicUpdateInterval(TICK_TIME);
 			// app.setMaximumLogicUpdateInterval(TICK_TIME);
-			app.setDisplayMode(640, 640, false);
+			app.setDisplayMode(1000, 640, false);
 			app.start();
 		} catch (SlickException e) {
 			e.printStackTrace();
