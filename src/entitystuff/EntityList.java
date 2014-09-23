@@ -1,6 +1,5 @@
 package entitystuff;
 
-import java.io.BufferedReader;
 import java.util.ArrayList;
 
 import mapstuff.Map;
@@ -9,26 +8,26 @@ import misc.Properties;
 import org.newdawn.slick.Graphics;
 
 public class EntityList {
-	private int next = 0;
+	private int next = 1;
 	private final ArrayList<Entity> entities;
+
 	public enum Entities {
 		PLAYER, HOUSE
 	}
 
 	public EntityList() {
-		next = 0;
 		entities = new ArrayList<Entity>();
 	}
-	public EntityList(BufferedReader br) {
-		entities = new ArrayList<Entity>();
-	}
+
 	public Entity createEntity(Entities type, Properties properties) {
 		Entity entity = null;
 		switch (type) {
 		case PLAYER:
 			entity = new Player(next, properties);
+		default:
+			break;
 		}
-		if(entity!=null){
+		if (entity != null) {
 			next++;
 			entities.add(entity);
 			return entity;
@@ -42,9 +41,13 @@ public class EntityList {
 
 	public void updateAll(Map map) {
 		// TODO Program the update method!!
-		for(Entity e: entities){
+		for (Entity e : entities) {
 			e.logicalUpdate();
 		}
 	}
-	
+
+	public Entity getEntity(int id) {
+		return entities.get(id);
+	}
+
 }

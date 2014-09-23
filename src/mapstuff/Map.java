@@ -1,30 +1,30 @@
 package mapstuff;
 
-import java.util.ArrayList;
+import misc.Properties;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import entitystuff.Entity;
 import entitystuff.EntityList;
+import entitystuff.EntityList.Entities;
+import entitystuff.Player;
 
 public class Map {
 	public static enum Direction {
 		NORTH, SOUTH, EAST, WEST
 	};
 
+	public final Player player;
 	public final EntityList entities;
 	private int[][] tiles;
 
-	public Map(int[][] data) {
+	public Map(int[][] data, Player player) {
 		this.tiles = data;
 		entities = new EntityList();
-	}
-
-	public Map(int[][] data, EntityList entities) {
-		this.tiles = data;
-		this.entities = entities;
+		entities.createEntity(Entities.PLAYER, new Properties());
+		player = entities.getEntity(0);
+		init();
 	}
 
 	private void init() {
@@ -48,7 +48,7 @@ public class Map {
 	public void render(int xLoc, int yLoc, double moveRatio, Direction facing,
 			Graphics g) {
 		// TODO write the render method
-		
+
 	}
 
 	public int getTile(int x, int y) {

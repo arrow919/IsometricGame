@@ -32,8 +32,8 @@ public class GameStart extends BasicGame {
 	private Image background;
 	// The graphics of the map buffer.
 	private Graphics bgGraphics;
-
-	public static final int TICK_TIME = 50;
+	private double moveRatio = 0;
+	public static final int TICK_TIME = 100;
 
 	// Only constructor, calls super().
 	public GameStart() {
@@ -45,7 +45,7 @@ public class GameStart extends BasicGame {
 	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
-		map.render(xLoc, yLoc, g);
+		map.render(xLoc, yLoc, transitionRatio, direction, g);
 	}
 
 	// Method is called before any rendering or updating happens.
