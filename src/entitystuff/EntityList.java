@@ -39,10 +39,10 @@ public class EntityList {
 		// TODO Program this method!!
 	}
 
-	public void updateAll(Map map) {
+	public void doLogicalStep(Map map, long currentLogicalFrame) {
 		// TODO Program the update method!!
 		for (Entity e : entities) {
-			e.logicalUpdate();
+			e.doLogicalStep(currentLogicalFrame);
 		}
 	}
 

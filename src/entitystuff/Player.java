@@ -4,15 +4,16 @@ import misc.Properties;
 
 public class Player extends PersistentEntity {
 	private int health;
+
 	public Player(long id, Properties props) {
 		super(id, props);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void logicalUpdate() {
+	public void doLogicalStep(long currentLogicalFrame) {
 		// TODO Handle logical updates for Player
-		
+
 	}
 
 	@Override
@@ -24,6 +25,6 @@ public class Player extends PersistentEntity {
 	@Override
 	public void load(String data) {
 		// TODO Load from string data
-		
+
 	}
 }

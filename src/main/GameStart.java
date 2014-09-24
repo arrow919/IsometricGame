@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import mapstuff.Map;
 import mapstuff.Tile;
 import mapstuff.Tiles;
+import mapstuff.World;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -25,9 +25,7 @@ public class GameStart extends BasicGame {
 	// Size of the screen.
 	public static final int screenTileWidth = 40, screenTileHeight = 40;
 	// The map of the current game - almost everything is held here.
-	private Map map;
-	// The x and y location of the camera.
-	private int xLoc, yLoc;
+	private World world;
 	// The map buffer.
 	private Image background;
 	// The graphics of the map buffer.
@@ -45,7 +43,7 @@ public class GameStart extends BasicGame {
 	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
-		map.render(xLoc, yLoc, transitionRatio, direction, g);
+		world.render(g);
 	}
 
 	// Method is called before any rendering or updating happens.
