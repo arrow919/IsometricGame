@@ -14,7 +14,7 @@ import org.newdawn.slick.SlickException;
 
 public class Tiles {
 	public static int TILE_WIDTH = 100, TILE_HEIGHT = 50;
-
+	public static int HALF_WIDTH = TILE_WIDTH/2, HALF_HEIGHT=TILE_HEIGHT/2;
 	private Tiles() {
 
 	}

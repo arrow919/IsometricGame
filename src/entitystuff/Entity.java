@@ -1,13 +1,14 @@
 package entitystuff;
 
 import mapstuff.Map;
+import mapstuff.World;
 import misc.Properties;
 
 public abstract class Entity {
 	public static final String KEY_X = "X", KEY_Y = "Y", KEY_DIRECTION = "DIR";
 	private final long id;
-	private int x, y;
-	private Map.Direction dir;
+	private int x = -1, y = -1;
+	private Map.Direction dir = Map.Direction.SOUTH;
 
 	public Entity(long id, Properties props) {
 		this.id = id;
@@ -17,7 +18,8 @@ public abstract class Entity {
 			} else if (e.equals(KEY_Y)) {
 				y = Integer.parseInt((String) props.getProperty(KEY_Y));
 			} else if (e.equals(KEY_DIRECTION)) {
-				String tempDir = (String) props.get(KEY_DIRECTION);
+				dir = Map.Direction.valueOf((String) props
+						.getProperty(KEY_DIRECTION));
 			}
 		}
 	}
@@ -26,7 +28,7 @@ public abstract class Entity {
 		this.id = id;
 	}
 
-	public abstract void doLogicalStep(long currentStepCount);
+	public abstract void doLogicalStep(World world, long currentStepCount);
 
 	public int getX() {
 		return x;

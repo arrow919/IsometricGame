@@ -1,36 +1,28 @@
 package main;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-
 import mapstuff.Map;
 import mapstuff.Tile;
 import mapstuff.Tiles;
 import mapstuff.World;
+import misc.Properties;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import Input.InputWrapper;
+import entitystuff.EntityList;
+import entitystuff.EntityList.Entities;
+import entitystuff.Player;
 
 public class GameStart extends BasicGame {
 	// Size of the screen.
 	public static final int screenTileWidth = 40, screenTileHeight = 40;
 	// The map of the current game - almost everything is held here.
 	private World world;
-	// The map buffer.
-	private Image background;
-	// The graphics of the map buffer.
-	private Graphics bgGraphics;
-	private double moveRatio = 0;
 	public static final int TICK_TIME = 100;
 
 	// Only constructor, calls super().
@@ -50,58 +42,49 @@ public class GameStart extends BasicGame {
 	@Override
 	public void init(GameContainer container) throws SlickException {
 		startTime = System.currentTimeMillis();
-		try {
-			loadMap();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		loadWorld();
 		Tiles.loadTiles();
 	}
 
-	public void loadMap() throws IOException {
+	public void loadWorld() {
 		// TODO map loading stuff
-		BufferedReader br = null;
-		try {
-			br = new BufferedReader(new FileReader("res/maps/1.dat"));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		ArrayList<int[]> lines = new ArrayList<int[]>();
-		String curLine;
-		while ((curLine = br.readLine()) != null) {
-			String[] numString = curLine.split(" ");
-			int[] nums = new int[numString.length];
-			for (int count = 0; count < nums.length; count++) {
-				nums[count] = Integer.parseInt(numString[count]);
+		int[][] tileTypes = new int[100][100];
+		for (int x = 0; x < 100; x++) {
+			for (int y = 0; y < 100; y++) {
+				tileTypes[x][y] = 0;
 			}
-			lines.add(nums);
 		}
-		int[][] data = new int[lines.size()][lines.get(0).length];
-		for (int count = 0; count < data.length; count++) {
-			data[count] = lines.get(count);
-		}
-		map = new Map(data);
+		tileTypes[30][30]=1;
+		int[][] tileHeights = new int[100][100];
+		EntityList entities = new EntityList();
+		Properties props = new Properties();
+		props.addProperty(Player.KEY_X, "50");
+		props.addProperty(Player.KEY_Y, "50");
+		props.addProperty(Player.KEY_CURRENT_HEALTH, "100");
+		props.addProperty(Player.KEY_MAX_HEALTH, "100");
+		world = new World(new Map(tileTypes, tileHeights),
+				(Player) entities.createEntity(Entities.PLAYER, props),
+				entities);
+
 	}
 
 	// Called when an update to the game is required.
-	private long logicalUpdates = 0;
+	private long currentLogicalStep = 0;
 	private final int targetUpdatesPerSecond = 1000 / TICK_TIME;
 	private long startTime;
 
 	@Override
 	public void update(GameContainer container, int delta)
 			throws SlickException {
-		float updatesPerSecond = logicalUpdates
+		float updatesPerSecond = currentLogicalStep
 				/ ((System.currentTimeMillis() - startTime) / 1000f);
 		if (updatesPerSecond < targetUpdatesPerSecond) {
-			map.entities.updateAll(map);
+			world.doLogicalStep(currentLogicalStep);
 			Input input = container.getInput();
 			// TODO do update stuff!!
-			logicalUpdates++;
+			currentLogicalStep++;
 		}
-		System.out.println("Logical updates per second: " + updatesPerSecond);
+		//System.out.println("Logical updates per second: " + updatesPerSecond);
 	}
 
 	@Override

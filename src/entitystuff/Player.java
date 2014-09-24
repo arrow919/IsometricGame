@@ -1,30 +1,35 @@
 package entitystuff;
 
+import mapstuff.World;
 import misc.Properties;
 
-public class Player extends PersistentEntity {
-	private int health;
+public class Player extends Entity {
+	public static final String KEY_CURRENT_HEALTH = "CURRENT_HEALTH",
+			KEY_MAX_HEALTH = "MAX_HEALTH";
+	private int currentHealth, maxHealth;
+	private double moveRatio;
 
 	public Player(long id, Properties props) {
 		super(id, props);
+		for (String e : props.keys()) {
+			if (e.equals(KEY_CURRENT_HEALTH)) {
+				currentHealth = Integer.valueOf((String) props
+						.getProperty(KEY_CURRENT_HEALTH));
+			} else if (e.equals(KEY_MAX_HEALTH)) {
+				maxHealth = Integer.valueOf((String) props
+						.getProperty(KEY_MAX_HEALTH));
+			}
+		}
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void doLogicalStep(long currentLogicalFrame) {
+	public void doLogicalStep(World world, long currentLogicalFrame) {
 		// TODO Handle logical updates for Player
 
 	}
 
-	@Override
-	public String persist() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void load(String data) {
-		// TODO Load from string data
-
+	public double getMoveRatio() {
+		return moveRatio;
 	}
 }

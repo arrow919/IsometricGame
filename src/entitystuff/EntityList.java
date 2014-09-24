@@ -2,13 +2,13 @@ package entitystuff;
 
 import java.util.ArrayList;
 
-import mapstuff.Map;
+import mapstuff.World;
 import misc.Properties;
 
 import org.newdawn.slick.Graphics;
 
 public class EntityList {
-	private int next = 1;
+	private int next = 0;
 	private final ArrayList<Entity> entities;
 
 	public enum Entities {
@@ -39,10 +39,10 @@ public class EntityList {
 		// TODO Program this method!!
 	}
 
-	public void doLogicalStep(Map map, long currentLogicalFrame) {
+	public void doLogicalStep(World world, long currentLogicalFrame) {
 		// TODO Program the update method!!
 		for (Entity e : entities) {
-			e.doLogicalStep(currentLogicalFrame);
+			e.doLogicalStep(world, currentLogicalFrame);
 		}
 	}
 

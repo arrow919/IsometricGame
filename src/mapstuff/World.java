@@ -16,16 +16,17 @@ public class World {
 		this.map = map;
 	}
 
-	public void doStep(long currentLogicalFrame) {
-		entities.doLogicalStep(map, currentLogicalFrame);
+	public void doLogicalStep(long currentLogicalFrame) {
+		entities.doLogicalStep(this, currentLogicalFrame);
 	}
 
 	public boolean movePlayer(Map.Direction dir) {
 		return false; // TODO move player in direction if possible, and return
 						// whether or not player was moved
 	}
-	
-	public void render(Graphics g){
-		map.render(player.getX(), player.getY(), player.getMoveRatio(), player.getDirection(), g);
+
+	public void render(Graphics g) {
+		map.render(player.getX(), player.getY(), player.getMoveRatio(),
+				player.getDirection(), g);
 	}
 }
