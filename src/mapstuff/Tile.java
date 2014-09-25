@@ -36,7 +36,6 @@ public class Tile {
 	public static Random ran = new Random();
 
 	public void render(Graphics g, int x, int y, int elevation, long time) {
-		System.out.println(time);
 		if (id == TYPE_VOID) {
 			return;
 		}
