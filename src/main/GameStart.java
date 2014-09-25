@@ -19,8 +19,7 @@ import entitystuff.EntityList.Entities;
 import entitystuff.Player;
 
 public class GameStart extends BasicGame {
-	// Size of the screen.
-	public static final int screenTileWidth = 40, screenTileHeight = 40;
+	public static final int WINDOW_WIDTH = 1000, WINDOW_HEIGHT=700;
 	// The map of the current game - almost everything is held here.
 	private World world;
 	public static final int TICK_TIME = 100;
@@ -28,7 +27,6 @@ public class GameStart extends BasicGame {
 	// Only constructor, calls super().
 	public GameStart() {
 		super("First 2D Game");
-		// TODO Auto-generated constructor stub
 	}
 
 	// Render the game world.
@@ -49,13 +47,19 @@ public class GameStart extends BasicGame {
 	public void loadWorld() {
 		// TODO map loading stuff
 		int[][] tileTypes = new int[100][100];
+		int[][] tileHeights = new int[100][100];
 		for (int x = 0; x < 100; x++) {
 			for (int y = 0; y < 100; y++) {
 				tileTypes[x][y] = 0;
+				if(x>45 && x<55 && y>45 && y<55){
+					tileTypes[x][y]=1;
+					tileHeights[x][y]=1;
+					if(x%2==0&&y%2==0){
+					tileHeights[x][y]=2;
+					}
+				}
 			}
 		}
-		tileTypes[30][30]=1;
-		int[][] tileHeights = new int[100][100];
 		EntityList entities = new EntityList();
 		Properties props = new Properties();
 		props.addProperty(Player.KEY_X, "50");
@@ -82,6 +86,9 @@ public class GameStart extends BasicGame {
 			world.doLogicalStep(currentLogicalStep);
 			Input input = container.getInput();
 			// TODO do update stuff!!
+			if(input.isKeyDown(Input.KEY_W)){
+				world.movePlayer(Map.Direction.NORTH);
+			}
 			currentLogicalStep++;
 		}
 		//System.out.println("Logical updates per second: " + updatesPerSecond);
@@ -108,13 +115,12 @@ public class GameStart extends BasicGame {
 		try {
 			app = new AppGameContainer(new GameStart());
 		} catch (SlickException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
 			// app.setMinimumLogicUpdateInterval(TICK_TIME);
 			// app.setMaximumLogicUpdateInterval(TICK_TIME);
-			app.setDisplayMode(1000, 640, false);
+			app.setDisplayMode(WINDOW_WIDTH, WINDOW_HEIGHT, false);
 			app.start();
 		} catch (SlickException e) {
 			e.printStackTrace();

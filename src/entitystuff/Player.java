@@ -20,7 +20,6 @@ public class Player extends Entity {
 						.getProperty(KEY_MAX_HEALTH));
 			}
 		}
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -31,5 +30,15 @@ public class Player extends Entity {
 
 	public double getMoveRatio() {
 		return moveRatio;
+	}
+
+	public void move(int x, int y) {
+		this.x -= x;
+		this.y += y;
+	}
+
+	public void teleport(int x, int y) {
+		this.x = x;
+		this.y = y;
 	}
 }

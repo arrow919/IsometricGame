@@ -2,9 +2,11 @@ package mapstuff;
 
 import org.newdawn.slick.Graphics;
 
+import entitystuff.EntityList;
+
 public class Map {
 	public static enum Direction {
-		NORTH, SOUTH, EAST, WEST
+		NORTH, EAST, SOUTH, WEST
 	};
 
 	private int[][] tileTypes;
@@ -14,13 +16,13 @@ public class Map {
 		this.tileTypes = types;
 		this.tileHeights = heights;
 	}
-
+	private final static int RANGE=12;
 	public void render(int xLoc, int yLoc, double moveRatio, Direction facing,
-			Graphics g) {
-		int baseX = xLoc-25;
-		int baseY = yLoc-25;
-		for (int curX = baseX; curX < xLoc + 25; curX++) {
-			for (int curY = baseY; curY < yLoc + 25; curY++) {
+			Graphics g, EntityList entities) {
+		int baseX = xLoc-RANGE;
+		int baseY = yLoc-RANGE;
+		for (int curX = baseX; curX <= xLoc + RANGE; curX++) {
+			for (int curY = baseY; curY <= yLoc + RANGE; curY++) {
 				Tiles.renderTile(g, tileTypes[curX][curY], curX-baseX, curY-baseY,
 						tileHeights[curX][curY]);
 			}

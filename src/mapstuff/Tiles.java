@@ -14,23 +14,16 @@ import org.newdawn.slick.SlickException;
 
 public class Tiles {
 	public static int TILE_WIDTH = 100, TILE_HEIGHT = 50;
-	public static int HALF_WIDTH = TILE_WIDTH/2, HALF_HEIGHT=TILE_HEIGHT/2;
+	public static int HALF_WIDTH = TILE_WIDTH / 2,
+			HALF_HEIGHT = TILE_HEIGHT / 2;
+
 	private Tiles() {
 
 	}
 
 	// TODO Add tile types
 	public static final int OUTSIDE_ID = -1, GRASS_BASE = 1;
-	public static Image grassBaseImage; // TODO Template for sprite images
 
-	public static Image getTileImage(int type) {
-		switch (type) {
-		case GRASS_BASE:
-			return grassBaseImage;
-		default:
-			return null;// Should never get here
-		}
-	}
 
 	private static String tileDataFolder = "res/data/tiles.dat";
 	private static String tileTexturesFolder = "res/tiletextures/";
@@ -42,7 +35,6 @@ public class Tiles {
 		try {
 			br = new BufferedReader(new FileReader(tileDataFolder));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		HashMap<String, Object> reusable = new HashMap<String, Object>();
@@ -58,33 +50,19 @@ public class Tiles {
 						reusable.put(splitPiece[0], splitPiece[1]);
 					}
 					try {
-						reusable.put("texture", new Image(tileTexturesFolder
-								+ reusable.get("name") + ".png"));
+						reusable.put(
+								Tile.KEY_TEXTURE,
+								new Image(tileTexturesFolder
+										+ reusable.get(Tile.KEY_NAME) + ".png"));
 					} catch (SlickException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					String className = (String) reusable.get("classname");
-					reusable.remove("classname");
-					try {
-						Class cl = Class.forName("mapstuff." + className);
-						Constructor con = cl.getConstructor(HashMap.class);
-						Object obj = con.newInstance(reusable);
-						tileObjects.put(
-								Integer.parseInt((String) reusable.get("id")),
-								(Tile) obj);
-					} catch (ClassNotFoundException | NoSuchMethodException
-							| SecurityException | InstantiationException
-							| IllegalAccessException | IllegalArgumentException
-							| InvocationTargetException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					tileObjects.put(Integer.parseInt((String) reusable
+							.get(Tile.KEY_ID)), new Tile(reusable));
 					System.out.println(reusable);
 				}
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -92,5 +70,9 @@ public class Tiles {
 	public static void renderTile(Graphics g, int type, int x, int y,
 			int elevation) {
 		tileObjects.get(type).render(g, x, y, elevation);
+	}
+
+	public static boolean isTileWalkable(int type, Map.Direction dir) {
+		return tileObjects.get(type).isWalkable(dir);
 	}
 }

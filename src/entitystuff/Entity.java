@@ -7,8 +7,8 @@ import misc.Properties;
 public abstract class Entity {
 	public static final String KEY_X = "X", KEY_Y = "Y", KEY_DIRECTION = "DIR";
 	private final long id;
-	private int x = -1, y = -1;
-	private Map.Direction dir = Map.Direction.SOUTH;
+	protected int x = -1, y = -1;
+	protected Map.Direction dir = Map.Direction.SOUTH;
 
 	public Entity(long id, Properties props) {
 		this.id = id;

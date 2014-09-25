@@ -21,12 +21,33 @@ public class World {
 	}
 
 	public boolean movePlayer(Map.Direction dir) {
+		int testX=0, testY=0;
+		switch (dir) {
+		case NORTH:
+			testX = player.getX();
+			testY = player.getY() - 1;
+		case EAST:
+			testX = player.getX() + 1;
+			testY = player.getY();
+		case SOUTH:
+			testX = player.getX();
+			testY = player.getY() + 1;
+		case WEST:
+			testX = player.getX() - 1;
+			testY = player.getY();
+		}
+		if(entities.entityAtLocation(testX,testY)==null){
+			if(Tiles.isTileWalkable(map.getTileType(player.getX(), player.getY()),dir)){
+				//TODO finish move player method
+			}
+		}
+		player.move(1, 0);
 		return false; // TODO move player in direction if possible, and return
 						// whether or not player was moved
 	}
 
 	public void render(Graphics g) {
 		map.render(player.getX(), player.getY(), player.getMoveRatio(),
-				player.getDirection(), g);
+				player.getDirection(), g, entities);
 	}
 }

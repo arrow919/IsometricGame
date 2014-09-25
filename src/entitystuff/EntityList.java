@@ -35,12 +35,7 @@ public class EntityList {
 		throw new RuntimeException("Entity type does not exist");
 	}
 
-	public void renderEntities(int xLoc, int yLoc, Graphics g) {
-		// TODO Program this method!!
-	}
-
 	public void doLogicalStep(World world, long currentLogicalFrame) {
-		// TODO Program the update method!!
 		for (Entity e : entities) {
 			e.doLogicalStep(world, currentLogicalFrame);
 		}
@@ -50,4 +45,12 @@ public class EntityList {
 		return entities.get(id);
 	}
 
+	public Entity entityAtLocation(int x, int y) {
+		for (Entity e : entities) {
+			if (e.getX() == x && e.getY() == y) {
+				return e;
+			}
+		}
+		return null;
+	}
 }
