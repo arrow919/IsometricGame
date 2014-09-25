@@ -13,16 +13,14 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 public class Tiles {
-	public static int TILE_WIDTH = 100, TILE_HEIGHT = 50;
-	public static int HALF_WIDTH = TILE_WIDTH / 2,
+	public static final int TILE_WIDTH = 100, TILE_HEIGHT = 50;
+	public static final int HALF_WIDTH = TILE_WIDTH / 2,
 			HALF_HEIGHT = TILE_HEIGHT / 2;
 
 	private Tiles() {
 
 	}
-
-	// TODO Add tile types
-	public static final int OUTSIDE_ID = -1, GRASS_BASE = 1;
+	public static final int OCEAN=2;
 
 
 	private static String tileDataFolder = "res/data/tiles.dat";
@@ -68,8 +66,8 @@ public class Tiles {
 	}
 
 	public static void renderTile(Graphics g, int type, int x, int y,
-			int elevation) {
-		tileObjects.get(type).render(g, x, y, elevation);
+			int elevation, long time) {
+		tileObjects.get(type).render(g, x, y, elevation, time);
 	}
 
 	public static boolean isTileWalkable(int type, Map.Direction dir) {

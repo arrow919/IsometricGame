@@ -18,13 +18,13 @@ public class Map {
 	}
 	private final static int RANGE=12;
 	public void render(int xLoc, int yLoc, double moveRatio, Direction facing,
-			Graphics g, EntityList entities) {
+			Graphics g, EntityList entities, long time) {
 		int baseX = xLoc-RANGE;
 		int baseY = yLoc-RANGE;
 		for (int curX = baseX; curX <= xLoc + RANGE; curX++) {
 			for (int curY = baseY; curY <= yLoc + RANGE; curY++) {
 				Tiles.renderTile(g, tileTypes[curX][curY], curX-baseX, curY-baseY,
-						tileHeights[curX][curY]);
+						tileHeights[curX][curY], time);
 			}
 		}
 

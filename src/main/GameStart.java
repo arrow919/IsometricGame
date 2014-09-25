@@ -8,6 +8,7 @@ import misc.Properties;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -33,6 +34,7 @@ public class GameStart extends BasicGame {
 	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
+		g.setBackground(Color.blue);
 		world.render(g);
 	}
 
@@ -50,13 +52,10 @@ public class GameStart extends BasicGame {
 		int[][] tileHeights = new int[100][100];
 		for (int x = 0; x < 100; x++) {
 			for (int y = 0; y < 100; y++) {
-				tileTypes[x][y] = 0;
+				tileTypes[x][y] = 2;
 				if(x>45 && x<55 && y>45 && y<55){
 					tileTypes[x][y]=1;
-					tileHeights[x][y]=1;
-					if(x%2==0&&y%2==0){
-					tileHeights[x][y]=2;
-					}
+					tileHeights[x][y]=0;
 				}
 			}
 		}
