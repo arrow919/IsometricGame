@@ -1,0 +1,6 @@
+CLASSNAME=Player ID=0 IMAGE= OFFSET=85,176
+
+#CLASSNAME is the class that will be loaded for this entity (saved in an arraylist of constructors in EntityList
+#ID must be unique (never change these after you make one for an entity...or it could mess up code!!) and is used for looking up image data and constructor
+#IMAGE 
+#OFFSET is the x,y point in the image that should be placed in the middle of the tile

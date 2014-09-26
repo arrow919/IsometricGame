@@ -20,10 +20,10 @@ public class Tiles {
 	private Tiles() {
 
 	}
-	public static final int OCEAN=2;
 
+	public static final int OCEAN = 2;
 
-	private static String tileDataFolder = "res/data/tiles.dat";
+	private static String tileDataFile = "res/data/tiles.dat";
 	private static String tileTexturesFolder = "res/tiletextures/";
 	private static HashMap<Integer, Tile> tileObjects;
 
@@ -31,7 +31,7 @@ public class Tiles {
 		tileObjects = new HashMap<Integer, Tile>();
 		BufferedReader br = null;
 		try {
-			br = new BufferedReader(new FileReader(tileDataFolder));
+			br = new BufferedReader(new FileReader(tileDataFile));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

@@ -9,6 +9,7 @@ public abstract class Entity {
 	private final long id;
 	protected int x = -1, y = -1;
 	protected Map.Direction dir = Map.Direction.SOUTH;
+	public final static String entitySpriteFolder = "res/entitysprites/";
 
 	public Entity(long id, Properties props) {
 		this.id = id;
@@ -24,10 +25,6 @@ public abstract class Entity {
 		}
 	}
 
-	public Entity(long id) {
-		this.id = id;
-	}
-
 	public abstract void doLogicalStep(World world, long currentStepCount);
 
 	public int getX() {
@@ -41,4 +38,6 @@ public abstract class Entity {
 	public Map.Direction getDirection() {
 		return dir;
 	}
+
+	public abstract void interact(World world, Entity subject);
 }
