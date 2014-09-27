@@ -1,5 +1,6 @@
 package main;
 
+import input.InputWrapper;
 import mapstuff.Map;
 import mapstuff.Tile;
 import mapstuff.Tiles;
@@ -14,7 +15,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-import Input.InputWrapper;
 import entitystuff.EntityList;
 import entitystuff.EntityList.Entities;
 import entitystuff.Player;

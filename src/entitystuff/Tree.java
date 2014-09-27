@@ -20,7 +20,7 @@ public class Tree extends Entity {
 	@Override
 	public void interact(World world, Entity subject) {
 		// TODO Auto-generated method stub
-		for
+		
 	}
 
 }

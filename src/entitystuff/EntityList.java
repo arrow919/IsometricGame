@@ -1,20 +1,9 @@
 package entitystuff;
 
-import java.awt.Point;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import mapstuff.Tile;
 import mapstuff.World;
 import misc.Properties;
-
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 
 public class EntityList {
 	private int next = 0;

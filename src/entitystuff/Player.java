@@ -12,7 +12,7 @@ public class Player extends Entity {
 	public static final String KEY_CURRENT_HEALTH = "CURRENT_HEALTH",
 			KEY_MAX_HEALTH = "MAX_HEALTH";
 	private int currentHealth, maxHealth;
-	private double moveRatio;
+	
 	private static ArrayList<Image> frames;
 
 	{
