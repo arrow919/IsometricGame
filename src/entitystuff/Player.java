@@ -43,11 +43,6 @@ public class Player extends Entity {
 		// TODO Handle logical updates for Player
 
 	}
-
-	public double getMoveRatio() {
-		return moveRatio;
-	}
-
 	public void move(int x, int y) {
 		this.x -= x;
 		this.y += y;

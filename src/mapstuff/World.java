@@ -49,5 +49,6 @@ public class World {
 	public void render(Graphics g) {
 		map.render(player.getX(), player.getY(), player.getMoveRatio(),
 				player.getDirection(), g, entities, System.currentTimeMillis());
+		//TODO handle the move ratio of the player
 	}
 }
