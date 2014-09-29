@@ -1,6 +1,7 @@
 package entitystuff;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import mapstuff.World;
 import misc.Properties;
@@ -51,5 +52,8 @@ public class EntityList {
 		}
 		return null;
 	}
-
+	
+	public Iterator<Entity> iterator(){
+		return entities.iterator();
+	}
 }

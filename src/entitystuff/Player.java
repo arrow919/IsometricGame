@@ -1,24 +1,23 @@
 package entitystuff;
 
-import java.util.ArrayList;
-
+import mapstuff.Map;
+import mapstuff.Map.Direction;
 import mapstuff.World;
 import misc.Properties;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 
 public class Player extends Entity {
 	public static final String KEY_CURRENT_HEALTH = "CURRENT_HEALTH",
 			KEY_MAX_HEALTH = "MAX_HEALTH";
 	private int currentHealth, maxHealth;
-	
-	private static ArrayList<Image> frames;
-
+	private static SpriteSheet armor;
 	{
-		frames = new ArrayList<Image>();
 		try {
-			frames.add(new Image(Entity.entitySpriteFolder + "player.png"));
+			armor = new SpriteSheet(Entity.entitySpriteFolder
+					+ "leather_armor.png", 128, 128);
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -43,8 +42,9 @@ public class Player extends Entity {
 		// TODO Handle logical updates for Player
 
 	}
+
 	public void move(int x, int y) {
-		this.x -= x;
+		this.x += x;
 		this.y += y;
 	}
 
@@ -56,5 +56,19 @@ public class Player extends Entity {
 	@Override
 	public void interact(World world, Entity subject) {
 
+	}
+
+	@Override
+	public void render(int x, int y, long time) {
+		// TODO currently doesn't have images heh...
+		int action = getAction();
+		long actionStart = getActionStart();
+		if (action == ACTION_WALKING) {
+			armor.getSprite(4 + (int) (time - getActionStart()) % 125,
+					(dir.ordinal() + 1) * 2).draw(x - 64, y - 100);
+		} else if (action == ACTION_IDLE) {
+			armor.getSprite((int) ((time - getActionStart()) % 250),
+					(dir.ordinal() + 1) * 2).draw(x - 64, y - 100);
+		}
 	}
 }

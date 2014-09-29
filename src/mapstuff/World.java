@@ -21,7 +21,7 @@ public class World {
 	}
 
 	public boolean movePlayer(Map.Direction dir) {
-		int testX=0, testY=0;
+		int testX = 0, testY = 0;
 		switch (dir) {
 		case NORTH:
 			testX = player.getX();
@@ -36,9 +36,10 @@ public class World {
 			testX = player.getX() - 1;
 			testY = player.getY();
 		}
-		if(entities.entityAtLocation(testX,testY)==null){
-			if(Tiles.isTileWalkable(map.getTileType(player.getX(), player.getY()),dir)){
-				//TODO finish move player method
+		if (entities.entityAtLocation(testX, testY) == null) {
+			if (Tiles.isTileWalkable(
+					map.getTileType(player.getX(), player.getY()), dir)) {
+				// TODO finish move player method
 			}
 		}
 		player.move(1, 0);
@@ -47,8 +48,11 @@ public class World {
 	}
 
 	public void render(Graphics g) {
-		map.render(player.getX(), player.getY(), player.getMoveRatio(),
-				player.getDirection(), g, entities, System.currentTimeMillis());
-		//TODO handle the move ratio of the player
+		map.render(
+				player.getX(),
+				player.getY(),
+				player.getActionStart(), player.getDirection(), g,
+				entities, System.currentTimeMillis());
+		// TODO handle the move ratio of the player
 	}
 }

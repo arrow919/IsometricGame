@@ -1,7 +1,10 @@
 package mapstuff;
 
+import java.util.Iterator;
+
 import org.newdawn.slick.Graphics;
 
+import entitystuff.Entity;
 import entitystuff.EntityList;
 
 public class Map {
@@ -16,15 +19,24 @@ public class Map {
 		this.tileTypes = types;
 		this.tileHeights = heights;
 	}
-	private final static int RANGE=12;
+
+	private final static int RANGE = 12;
+
 	public void render(int xLoc, int yLoc, double moveRatio, Direction facing,
 			Graphics g, EntityList entities, long time) {
-		int baseX = xLoc-RANGE;
-		int baseY = yLoc-RANGE;
+		int baseX = xLoc - RANGE;
+		int baseY = yLoc - RANGE;
 		for (int curX = baseX; curX <= xLoc + RANGE; curX++) {
 			for (int curY = baseY; curY <= yLoc + RANGE; curY++) {
-				Tiles.renderTile(g, tileTypes[curX][curY], curX-baseX, curY-baseY,
-						tileHeights[curX][curY], time);
+				Tiles.renderTile(g, tileTypes[curX][curY], curX - baseX, curY
+						- baseY, tileHeights[curX][curY], time);
+				Iterator<Entity> it = entities.iterator();
+				while (it.hasNext()) {
+					Entity en = it.next();
+					if (en.getX() == curX && en.getY() == curY) {
+						en.render(Tile.xy[0], Tile.xy[1], time);
+					}
+				}
 			}
 		}
 

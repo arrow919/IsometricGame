@@ -34,11 +34,9 @@ public class Tile {
 	}
 
 	public static Random ran = new Random();
+	public static final int[] xy = new int[2];
 
 	public void render(Graphics g, int x, int y, int elevation, long time) {
-		if (id == TYPE_VOID) {
-			return;
-		}
 		int additionalHeight = 0;
 		if (id == TYPE_OCEAN) {
 			additionalHeight += (Math.sin(x + (time / 15) % 256 / 128.0
@@ -47,7 +45,13 @@ public class Tile {
 		int xiso = (x - y + 9) * Tiles.HALF_WIDTH;
 		int yiso = (x + y - 11) * Tiles.HALF_HEIGHT - elevation * 10
 				+ additionalHeight;
+		xy[0] = xiso + Tiles.HALF_WIDTH;
+		xy[1] = yiso + Tiles.HALF_HEIGHT;
+		if (id == TYPE_VOID) {
+			return;
+		}
 		g.drawImage(texture, xiso, yiso);
+
 	}
 
 	public int entityOffset(Map.Direction dir, float ratio) {
@@ -57,8 +61,8 @@ public class Tile {
 	public boolean isWalkable(Direction dir) {
 		return !boatOnly && walkable[dir.ordinal()];
 	}
-	
-	public boolean isBoatable(){
+
+	public boolean isBoatable() {
 		return boatOnly;
 	}
 }

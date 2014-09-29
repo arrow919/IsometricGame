@@ -10,6 +10,10 @@ public abstract class Entity {
 	protected int x = -1, y = -1;
 	protected Map.Direction dir = Map.Direction.SOUTH;
 	public final static String entitySpriteFolder = "res/entitysprites/";
+	private int moveSpeed = 1; // Time in millis it takes to move a square
+	private int action = 0; // idle=0,walking=1;
+	private long actionStart;
+	public static final int ACTION_IDLE = 0, ACTION_WALKING = 1;
 
 	public Entity(long id, Properties props) {
 		this.id = id;
@@ -40,4 +44,22 @@ public abstract class Entity {
 	}
 
 	public abstract void interact(World world, Entity subject);
+
+	public abstract void render(int x, int y, long time);
+
+	public int getMoveSpeed() {
+		return moveSpeed;
+	}
+
+	public int getAction() {
+		return action;
+	}
+
+	public void setAction(int action) {
+		this.action = action;
+	}
+
+	public long getActionStart() {
+		return actionStart;
+	}
 }
