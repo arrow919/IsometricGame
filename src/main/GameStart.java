@@ -15,12 +15,13 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
+import entitystuff.Entity;
 import entitystuff.EntityList;
 import entitystuff.EntityList.Entities;
 import entitystuff.Player;
 
 public class GameStart extends BasicGame {
-	public static final int WINDOW_WIDTH = 1000, WINDOW_HEIGHT=700;
+	public static final int WINDOW_WIDTH = 1000, WINDOW_HEIGHT = 700;
 	// The map of the current game - almost everything is held here.
 	private World world;
 	public static final int TICK_TIME = 100;
@@ -53,9 +54,9 @@ public class GameStart extends BasicGame {
 		for (int x = 0; x < 100; x++) {
 			for (int y = 0; y < 100; y++) {
 				tileTypes[x][y] = 2;
-				if(x>45 && x<55 && y>45 && y<55){
-					tileTypes[x][y]=1;
-					tileHeights[x][y]=0;
+				if (x > 45 && x < 55 && y > 45 && y < 55) {
+					tileTypes[x][y] = 1;
+					tileHeights[x][y] = 0;
 				}
 			}
 		}
@@ -79,31 +80,43 @@ public class GameStart extends BasicGame {
 	@Override
 	public void update(GameContainer container, int delta)
 			throws SlickException {
+		long time = System.currentTimeMillis();
 		float updatesPerSecond = currentLogicalStep
-				/ ((System.currentTimeMillis() - startTime) / 1000f);
+				/ ((time - startTime) / 1000f);
 		if (updatesPerSecond < targetUpdatesPerSecond) {
 			world.doLogicalStep(currentLogicalStep);
-			Input input = container.getInput();
-			// TODO do update stuff!!
-			if(input.isKeyDown(Input.KEY_W)){
-				world.movePlayer(Map.Direction.NORTH);
-			}
 			currentLogicalStep++;
 		}
-		//System.out.println("Logical updates per second: " + updatesPerSecond);
+		Player player = world.getPlayer();
+		int lastDirectionPressed = InputWrapper.getMostRecentDirectional();
+		if (lastDirectionPressed >= 0) {
+			if (player.canMove()) {
+				Map.Direction dir = InputWrapper.keyToDirection(lastDirectionPressed);
+				if(player.getDirection()==dir){
+					world.getPlayer().setAction(Entity.ACTION_WALKING, time);
+					
+				} else {
+				world.getPlayer().setDirection(
+						InputWrapper.keyToDirection(lastDirectionPressed));
+				}
+			}
+
+		} else {
+			if (time - player.getActionStart() >= 1000) {
+				player.setAction(Entity.ACTION_IDLE, time);
+			}
+		}
 	}
 
 	@Override
 	public void keyPressed(int key, char c) {
 		super.keyPressed(key, c);
-		// TODO Insert more key presses here!!
 		InputWrapper.keyEvent(true, key);
 	}
 
 	@Override
 	public void keyReleased(int key, char c) {
 		super.keyReleased(key, c);
-		// TODO Handle more key releases here!!
 		InputWrapper.keyEvent(false, key);
 	}
 

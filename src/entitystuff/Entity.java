@@ -43,6 +43,10 @@ public abstract class Entity {
 		return dir;
 	}
 
+	public void setDirection(Map.Direction newdir) {
+		dir = newdir;
+	}
+
 	public abstract void interact(World world, Entity subject);
 
 	public abstract void render(int x, int y, long time);
@@ -55,11 +59,13 @@ public abstract class Entity {
 		return action;
 	}
 
-	public void setAction(int action) {
+	public void setAction(int action, long time) {
 		this.action = action;
+		actionStart = time;
 	}
 
 	public long getActionStart() {
 		return actionStart;
 	}
+	public abstract boolean canMove();
 }

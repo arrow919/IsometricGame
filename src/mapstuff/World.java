@@ -2,6 +2,7 @@ package mapstuff;
 
 import org.newdawn.slick.Graphics;
 
+import entitystuff.Entity;
 import entitystuff.EntityList;
 import entitystuff.Player;
 
@@ -12,6 +13,7 @@ public class World {
 
 	public World(Map map, Player player, EntityList entities) {
 		this.player = player;
+		player.setAction(Entity.ACTION_IDLE, System.currentTimeMillis());
 		this.entities = entities;
 		this.map = map;
 	}
@@ -54,5 +56,8 @@ public class World {
 				player.getActionStart(), player.getDirection(), g,
 				entities, System.currentTimeMillis());
 		// TODO handle the move ratio of the player
+	}
+	public Player getPlayer(){
+		return player;
 	}
 }
