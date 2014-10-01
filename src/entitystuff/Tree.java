@@ -1,26 +1,18 @@
 package entitystuff;
 
-import mapstuff.World;
-import misc.Properties;
+import java.util.HashMap;
 
 public class Tree extends Entity {
-	private static int maxHealth;
-	private int health;
-
-	public Tree(long id, Properties props) {
+	public Tree(long id, HashMap<String, Object> props) {
 		super(id, props);
 
 	}
 
 	@Override
-	public void doLogicalStep(World world, long currentStepCount) {
-
-	}
-
-	@Override
-	public void interact(World world, Entity subject) {
-		// TODO Auto-generated method stub
+	public void render(int x, int y, long time) {
+		// TODO Figure out the rendering for Tree
 		
 	}
+
 
 }

@@ -1,43 +1,33 @@
 package entitystuff;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
-
-import mapstuff.World;
-import misc.Properties;
 
 public class EntityList {
 	private int next = 0;
 	private final ArrayList<Entity> entities;
-
-	public enum Entities {
-		PLAYER, HOUSE
-	}
+	public static final String ENTITY_PLAYER = "PLAYER", ENTITY_TREE = "TREE";
 
 	public EntityList() {
 		entities = new ArrayList<Entity>();
 	}
 
-	public Entity createEntity(Entities type, Properties properties) {
+	public Entity createEntity(String type, HashMap<String, Object> props) {
 		Entity entity = null;
 		switch (type) {
-		case PLAYER:
-			entity = new Player(next, properties);
-		default:
+		case ENTITY_PLAYER:
+			entity = new Player(next, props);
+			break;
+		case ENTITY_TREE:
+			entity = new Tree(next, props);
 			break;
 		}
 		if (entity != null) {
 			next++;
 			entities.add(entity);
-			return entity;
 		}
-		throw new RuntimeException("Entity type does not exist");
-	}
-
-	public void doLogicalStep(World world, long currentLogicalFrame) {
-		for (Entity e : entities) {
-			e.doLogicalStep(world, currentLogicalFrame);
-		}
+		throw new RuntimeException("Entity does not exist");
 	}
 
 	public Entity getEntity(int id) {
@@ -52,8 +42,8 @@ public class EntityList {
 		}
 		return null;
 	}
-	
-	public Iterator<Entity> iterator(){
+
+	public Iterator<Entity> iterator() {
 		return entities.iterator();
 	}
 }

@@ -13,13 +13,8 @@ public class World {
 
 	public World(Map map, Player player, EntityList entities) {
 		this.player = player;
-		player.setAction(Entity.ACTION_IDLE, System.currentTimeMillis());
 		this.entities = entities;
 		this.map = map;
-	}
-
-	public void doLogicalStep(long currentLogicalFrame) {
-		entities.doLogicalStep(this, currentLogicalFrame);
 	}
 
 	public boolean movePlayer(Directional.Dir dir) {
@@ -50,14 +45,12 @@ public class World {
 	}
 
 	public void render(Graphics g) {
-		map.render(
-				player.getX(),
-				player.getY(),
-				player.getActionStart(), player.getDirection(), g,
+		map.render(player.getX(), player.getY(), 0, player.getDirection(), g,
 				entities, System.currentTimeMillis());
 		// TODO handle the move ratio of the player
 	}
-	public Player getPlayer(){
+
+	public Player getPlayer() {
 		return player;
 	}
 }

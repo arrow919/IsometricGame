@@ -1,11 +1,11 @@
 package main;
 
-import input.InputWrapper;
+import java.util.HashMap;
+
 import mapstuff.Directional;
 import mapstuff.Map;
 import mapstuff.Tiles;
 import mapstuff.World;
-import misc.Properties;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
@@ -14,9 +14,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import entitystuff.Entity;
 import entitystuff.EntityList;
-import entitystuff.EntityList.Entities;
 import entitystuff.Player;
 
 public class GameStart extends BasicGame {
@@ -60,13 +58,15 @@ public class GameStart extends BasicGame {
 			}
 		}
 		EntityList entities = new EntityList();
-		Properties props = new Properties();
-		props.addProperty(Player.KEY_X, "50");
-		props.addProperty(Player.KEY_Y, "50");
-		props.addProperty(Player.KEY_CURRENT_HEALTH, "100");
-		props.addProperty(Player.KEY_MAX_HEALTH, "100");
-		world = new World(new Map(tileTypes, tileHeights),
-				(Player) entities.createEntity(Entities.PLAYER, props),
+		HashMap<String, Object> props = new HashMap<String, Object>();
+		props.put(Player.KEY_X, "50");
+		props.put(Player.KEY_Y, "50");
+		props.put(Player.KEY_CURRENT_HEALTH, "100");
+		props.put(Player.KEY_MAX_HEALTH, "100");
+		props.put(Player.KEY_DIRECTION, Directional.Dir.SOUTH);
+		world = new World(
+				new Map(tileTypes, tileHeights),
+				(Player) entities.createEntity(EntityList.ENTITY_PLAYER, props),
 				entities);
 
 	}
@@ -80,44 +80,8 @@ public class GameStart extends BasicGame {
 	public void update(GameContainer container, int delta)
 			throws SlickException {
 		long time = System.currentTimeMillis();
-		float updatesPerSecond = currentLogicalStep
-				/ ((time - startTime) / 1000f);
-		if (updatesPerSecond < targetUpdatesPerSecond) {
-			world.doLogicalStep(currentLogicalStep);
-			currentLogicalStep++;
-		}
 		Player player = world.getPlayer();
-		int lastDirectionPressed = InputWrapper.getMostRecentDirectional();
-		if (lastDirectionPressed >= 0) {
-			if (player.canMove()) {
-				Directional.Dir dir = InputWrapper
-						.keyToDirection(lastDirectionPressed);
-				if (player.getDirection().equals(dir)) {
-					world.getPlayer().setAction(Entity.ACTION_WALKING, time);
-
-				} else {
-					world.getPlayer().setDirection(
-							InputWrapper.keyToDirection(lastDirectionPressed));
-				}
-			}
-
-		} else {
-			if (time - player.getActionStart() >= 1000) {
-				player.setAction(Entity.ACTION_IDLE, time);
-			}
-		}
-	}
-
-	@Override
-	public void keyPressed(int key, char c) {
-		super.keyPressed(key, c);
-		InputWrapper.keyEvent(true, key);
-	}
-
-	@Override
-	public void keyReleased(int key, char c) {
-		super.keyReleased(key, c);
-		InputWrapper.keyEvent(false, key);
+		//TODO handle input handling;
 	}
 
 	// The main method of the whole thing.
