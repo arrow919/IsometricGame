@@ -2,7 +2,6 @@ package main;
 
 import input.InputWrapper;
 import mapstuff.Map;
-import mapstuff.Tile;
 import mapstuff.Tiles;
 import mapstuff.World;
 import misc.Properties;
@@ -12,7 +11,6 @@ import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import entitystuff.Entity;
@@ -91,13 +89,14 @@ public class GameStart extends BasicGame {
 		int lastDirectionPressed = InputWrapper.getMostRecentDirectional();
 		if (lastDirectionPressed >= 0) {
 			if (player.canMove()) {
-				Map.Direction dir = InputWrapper.keyToDirection(lastDirectionPressed);
-				if(player.getDirection()==dir){
+				Map.Direction dir = InputWrapper
+						.keyToDirection(lastDirectionPressed);
+				if (player.getDirection().equals(dir)) {
 					world.getPlayer().setAction(Entity.ACTION_WALKING, time);
-					
+
 				} else {
-				world.getPlayer().setDirection(
-						InputWrapper.keyToDirection(lastDirectionPressed));
+					world.getPlayer().setDirection(
+							InputWrapper.keyToDirection(lastDirectionPressed));
 				}
 			}
 
@@ -122,7 +121,7 @@ public class GameStart extends BasicGame {
 
 	// The main method of the whole thing.
 	public static void main(String[] args) {
-		System.out.println(Tile.class.getName());
+		// System.out.println(Tile.class.getName());
 		AppGameContainer app = null;
 		try {
 			app = new AppGameContainer(new GameStart());

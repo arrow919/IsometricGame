@@ -57,7 +57,6 @@ public class InputWrapper {
 	public static int getMostRecentDirectional() {
 		int key = Input.KEY_W;
 		long val = KEY_W;
-		System.out.println(val);
 		if (KEY_D > val) {
 			key = Input.KEY_D;
 			val = KEY_D;
@@ -69,9 +68,6 @@ public class InputWrapper {
 		if (KEY_A > val) {
 			key = Input.KEY_A;
 			val = KEY_A;
-		}
-		if (val < 0) {
-			return -1;
 		}
 		return key;
 	}

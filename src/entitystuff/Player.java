@@ -27,7 +27,7 @@ public class Player extends Entity {
 		ArrayList<Animation> idleAnimations = new ArrayList<Animation>();
 		for (int count = 0; count < 4; count++) {
 			idleAnimations.add(new Animation(armorSheet, new int[] { 0, 1, 2,
-					3, 3, 2, 1 }, count, 250));
+					3, 3, 2, 1,0 }, count, 200));
 		}
 		animations.put(Entity.ACTION_IDLE, idleAnimations);
 

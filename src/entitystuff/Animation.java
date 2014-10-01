@@ -22,10 +22,12 @@ public class Animation {
 		this.frames = new ArrayList<Image>();
 		for (int count = 0; count < frames.length; count++) {
 			this.frames.add(sheet.getSprite(frames[count], y));
+			System.out.println(frames[count]);
 		}
 	}
 
 	public Image getFrame(long time, long startTime) {
+		//System.out.println((int) ((time - startTime) / runtime % frames.size()));
 		return frames.get((int) ((time - startTime) / runtime % frames.size()));
 	}
 }
