@@ -8,9 +8,6 @@ import entitystuff.Entity;
 import entitystuff.EntityList;
 
 public class Map {
-	public static enum Direction {
-		NORTH, EAST, SOUTH, WEST
-	};
 
 	private int[][] tileTypes;
 	private int[][] tileHeights;
@@ -22,7 +19,7 @@ public class Map {
 
 	private final static int RANGE = 12;
 
-	public void render(int xLoc, int yLoc, double moveRatio, Direction facing,
+	public void render(int xLoc, int yLoc, double moveRatio, Directional.Dir facing,
 			Graphics g, EntityList entities, long time) {
 		int baseX = xLoc - RANGE;
 		int baseY = yLoc - RANGE;

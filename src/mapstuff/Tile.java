@@ -3,7 +3,7 @@ package mapstuff;
 import java.util.HashMap;
 import java.util.Random;
 
-import mapstuff.Map.Direction;
+import mapstuff.Directional.Dir;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -54,11 +54,11 @@ public class Tile {
 
 	}
 
-	public int entityOffset(Map.Direction dir, float ratio) {
+	public int entityOffset(Directional.Dir dir, float ratio) {
 		return 0;
 	}
 
-	public boolean isWalkable(Direction dir) {
+	public boolean isWalkable(Dir dir) {
 		return !boatOnly && walkable[dir.ordinal()];
 	}
 

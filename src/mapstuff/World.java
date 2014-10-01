@@ -22,7 +22,7 @@ public class World {
 		entities.doLogicalStep(this, currentLogicalFrame);
 	}
 
-	public boolean movePlayer(Map.Direction dir) {
+	public boolean movePlayer(Directional.Dir dir) {
 		int testX = 0, testY = 0;
 		switch (dir) {
 		case NORTH:

@@ -1,7 +1,7 @@
 package input;
 
-import mapstuff.Map;
-import mapstuff.Map.Direction;
+import mapstuff.Directional;
+import mapstuff.Directional.Dir;
 
 import org.newdawn.slick.Input;
 
@@ -41,17 +41,17 @@ public class InputWrapper {
 		return false;
 	}
 
-	public static Map.Direction keyToDirection(int key) {
+	public static Directional.Dir keyToDirection(int key) {
 		if (key == Input.KEY_W) {
-			return Direction.NORTH;
+			return Dir.NORTH;
 		} else if (key == Input.KEY_D) {
-			return Direction.EAST;
+			return Dir.EAST;
 		} else if (key == Input.KEY_S) {
-			return Direction.SOUTH;
+			return Dir.SOUTH;
 		} else if (key == Input.KEY_A) {
-			return Direction.WEST;
+			return Dir.WEST;
 		}
-		return Direction.NORTH;
+		return Dir.NORTH;
 	}
 
 	public static int getMostRecentDirectional() {

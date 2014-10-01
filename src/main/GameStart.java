@@ -1,6 +1,7 @@
 package main;
 
 import input.InputWrapper;
+import mapstuff.Directional;
 import mapstuff.Map;
 import mapstuff.Tiles;
 import mapstuff.World;
@@ -89,7 +90,7 @@ public class GameStart extends BasicGame {
 		int lastDirectionPressed = InputWrapper.getMostRecentDirectional();
 		if (lastDirectionPressed >= 0) {
 			if (player.canMove()) {
-				Map.Direction dir = InputWrapper
+				Directional.Dir dir = InputWrapper
 						.keyToDirection(lastDirectionPressed);
 				if (player.getDirection().equals(dir)) {
 					world.getPlayer().setAction(Entity.ACTION_WALKING, time);
