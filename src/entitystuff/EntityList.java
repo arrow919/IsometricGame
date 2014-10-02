@@ -26,6 +26,7 @@ public class EntityList {
 		if (entity != null) {
 			next++;
 			entities.add(entity);
+			return entity;
 		}
 		throw new RuntimeException("Entity does not exist");
 	}

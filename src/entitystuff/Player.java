@@ -15,7 +15,8 @@ public class Player extends Entity {
 	private static HashMap<Integer, ArrayList<Animation>> animations;
 	{
 		animations = new HashMap<Integer, ArrayList<Animation>>();
-		SpriteSheet armorSheet = EntitySpriteLoader.loadSheet("leather_armor.png", 128, 128);
+		SpriteSheet armorSheet = EntitySpriteLoader.loadSheet(
+				"leather_armor.png", 128, 128);
 		ArrayList<Animation> idleAnimations = new ArrayList<Animation>();
 		for (int count = 0; count < 4; count++) {
 			idleAnimations.add(new Animation(armorSheet, new int[] { 0, 1, 2,
@@ -35,7 +36,7 @@ public class Player extends Entity {
 	public Player(long id, HashMap<String, Object> props) {
 		super(id, props);
 	}
-	
+
 	public void move(int x, int y) {
 		this.x += x;
 		this.y += y;
@@ -46,17 +47,17 @@ public class Player extends Entity {
 		this.y = y;
 	}
 
+	private int animation;
 
 	@Override
 	public void render(int x, int y, long time) {
-		
-		int action = event.identifier;
-		animations.get(action).get(dir.ordinal())
+
+		animations.get(animation).get(dir.ordinal())
 				.getFrame(time, event.getStartTime()).draw(x - 64, y - 100);
 	}
 
 	public boolean canMove() {
 		return event instanceof IdleEvent;
 	}
-	
+
 }

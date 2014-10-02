@@ -15,18 +15,14 @@ public abstract class Entity {
 	protected Event event = Event.DEAD_EVENT;
 
 	public Entity(long id, HashMap<String, Object> props) {
-		this.properties = props;
 		this.id = id;
 		for (String e : props.keySet()) {
 			if (e.equals(KEY_X)) {
 				x = Integer.parseInt((String) props.get(KEY_X));
-				props.remove(KEY_X);
 			} else if (e.equals(KEY_Y)) {
 				y = Integer.parseInt((String) props.get(KEY_Y));
-				props.remove(KEY_Y);
 			} else if (e.equals(KEY_DIRECTION)) {
 				dir = (Directional.Dir)props.get(KEY_DIRECTION);
-				props.remove(KEY_DIRECTION);
 			}
 		}
 
