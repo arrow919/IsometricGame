@@ -2,13 +2,15 @@ package entitystuff;
 
 import io.EntitySpriteLoader;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.newdawn.slick.SpriteSheet;
 
 import eventsystem.IdleEvent;
-
+import eventsystem.WASDEvent;
+import mapstuff.Directional;
 public class Player extends Entity {
 	public static final String KEY_CURRENT_HEALTH = "CURRENT_HEALTH",
 			KEY_MAX_HEALTH = "MAX_HEALTH";
@@ -57,7 +59,13 @@ public class Player extends Entity {
 	}
 
 	public boolean canMove() {
+		//TODO Add events that are cancellable when the player wants to move
 		return event instanceof IdleEvent;
 	}
-
+	
+	public void wasdInput(Directional.Dir dir long time){
+		if(canMove()){
+			event = new WASDEvent(this, null, time, dir);
+		}
+	}
 }
