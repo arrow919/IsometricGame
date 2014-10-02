@@ -32,14 +32,12 @@ public class GameStart extends BasicGame {
 	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
-		g.setBackground(Color.blue);
 		world.render(g);
 	}
 
 	// Method is called before any rendering or updating happens.
 	@Override
 	public void init(GameContainer container) throws SlickException {
-		startTime = System.currentTimeMillis();
 		loadWorld();
 		Tiles.loadTiles();
 	}
@@ -71,17 +69,10 @@ public class GameStart extends BasicGame {
 
 	}
 
-	// Called when an update to the game is required.
-	private long currentLogicalStep = 0;
-	private final int targetUpdatesPerSecond = 1000 / TICK_TIME;
-	private long startTime;
-
 	@Override
 	public void update(GameContainer container, int delta)
 			throws SlickException {
-		long time = System.currentTimeMillis();
-		Player player = world.getPlayer();
-		//TODO handle input handling;
+		world.updateEntityEvents();
 	}
 
 	// The main method of the whole thing.

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import mapstuff.World;
+
 public class EntityList {
 	private int next = 0;
 	private final ArrayList<Entity> entities;
@@ -46,5 +48,10 @@ public class EntityList {
 
 	public Iterator<Entity> iterator() {
 		return entities.iterator();
+	}
+	public void processEvents(World world){
+		for(Entity e: entities){
+			e.processEvent(world);
+		}
 	}
 }

@@ -2,6 +2,7 @@ package eventsystem;
 
 import java.util.HashMap;
 
+import mapstuff.World;
 import entitystuff.Entity;
 
 public class Event {
@@ -17,11 +18,11 @@ public class Event {
 		this.object = object;
 	}
 
-	public boolean process(long frameTime) {
-		return true;
+	public void process(World world) {
+
 	}
 
-	public long getStartTime() {
+	public final long getStartTime() {
 		return startTime;
 	}
 }

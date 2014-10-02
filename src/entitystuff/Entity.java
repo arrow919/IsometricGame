@@ -3,6 +3,7 @@ package entitystuff;
 import java.util.HashMap;
 
 import mapstuff.Directional;
+import mapstuff.World;
 import eventsystem.Event;
 
 public abstract class Entity {
@@ -22,10 +23,9 @@ public abstract class Entity {
 			} else if (e.equals(KEY_Y)) {
 				y = Integer.parseInt((String) props.get(KEY_Y));
 			} else if (e.equals(KEY_DIRECTION)) {
-				dir = (Directional.Dir)props.get(KEY_DIRECTION);
+				dir = (Directional.Dir) props.get(KEY_DIRECTION);
 			}
 		}
-
 	}
 
 	public int getX() {
@@ -50,4 +50,7 @@ public abstract class Entity {
 		return id;
 	}
 
+	public void processEvent(World world) {
+		event.process(world);
+	}
 }

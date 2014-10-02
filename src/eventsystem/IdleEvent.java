@@ -2,6 +2,7 @@ package eventsystem;
 
 import java.util.HashMap;
 
+import mapstuff.World;
 import entitystuff.Entity;
 
 public class IdleEvent extends Event {
@@ -12,8 +13,8 @@ public class IdleEvent extends Event {
 	}
 
 	@Override
-	public boolean process(long currentTime) {
-		return false;
+	public void process(World world){
+		
 	}
 
 }

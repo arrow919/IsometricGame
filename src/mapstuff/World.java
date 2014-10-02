@@ -53,4 +53,8 @@ public class World {
 	public Player getPlayer() {
 		return player;
 	}
+	
+	public void updateEntityEvents(){
+		entities.updateEvents();
+	}
 }
