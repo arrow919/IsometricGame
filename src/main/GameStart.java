@@ -1,9 +1,6 @@
 package main;
 
 import input.InputWrapper;
-
-import java.util.HashMap;
-
 import mapstuff.Direction;
 import mapstuff.Map;
 import mapstuff.Tiles;
@@ -58,10 +55,9 @@ public class GameStart extends BasicGame {
 			}
 		}
 		EntityList entities = new EntityList(0);
-		Player player = new Player(Direction.SOUTH_WEST, 0, 0);
+		Player player = new Player(Direction.EAST, 50, 50);
 		entities.addEntity(player);
 		world = new World(new Map(tileTypes, tileHeights), player, entities);
-
 	}
 
 	@Override

@@ -20,7 +20,7 @@ public class Direction {
 			SOUTH_WEST = new Direction(0, 1), WEST = new Direction(-1, 1),
 			NORTH_WEST = new Direction(-1, 0);
 	private static ArrayList<Direction> ordinals = new ArrayList<Direction>();
-	{
+	static {
 		ordinals.add(WEST);
 		ordinals.add(NORTH_WEST);
 		ordinals.add(NORTH);
