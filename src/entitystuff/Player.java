@@ -21,7 +21,7 @@ public class Player extends Entity {
 	{
 		animations = new HashMap<Integer, ArrayList<Animation>>();
 		SpriteSheet armorSheet = EntitySpriteLoader.loadSheet(
-				"isometric_heroine/leather_armor.png", 128, 128);
+				"isometric_heroine/clothes.png", 128, 128);
 		ArrayList<Animation> idleAnimations = new ArrayList<Animation>();
 		for (int count = 0; count < 8; count++) {
 			idleAnimations.add(new Animation(armorSheet, new int[] { 0, 1, 2,
@@ -38,8 +38,8 @@ public class Player extends Entity {
 
 	}
 
-	public Player(long id, Direction dir, int x, int y) {
-		super(id, dir, x, y);
+	public Player(Direction dir, int x, int y) {
+		super(dir, x, y);
 	}
 
 	public void move(int x, int y) {
@@ -57,8 +57,8 @@ public class Player extends Entity {
 	@Override
 	public void render(int x, int y, long time) {
 
-		animations.get(animation).get(dir.ordinal())
-				.getFrame(time, event.getStartTime()).draw(x - 64, y - 100);
+		animations.get(animation).get(dir.ordinal()).getFrame(time, event.getStartTime())
+				.draw(x - 64, y - 100);
 	}
 
 	private boolean canMove(int x, int y, World world) {

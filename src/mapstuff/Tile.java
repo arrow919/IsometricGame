@@ -56,14 +56,11 @@ public class Tile {
 		if (dir.equals(Direction.NORTH_EAST)) {
 
 		}
-		return !boatOnly && walkable[dir.ordinal()];
+		return !boatOnly && walkable[dir.ordinal() / 2];
 	}
 
 	public boolean isBoatable() {
 		return boatOnly;
 	}
 
-	public static int ordinals(Direction dir) {
-
-	}
 }

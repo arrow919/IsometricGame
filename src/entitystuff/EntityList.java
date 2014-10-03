@@ -12,27 +12,16 @@ public class EntityList {
 	private final ArrayList<Entity> entities;
 	public static final String ENTITY_PLAYER = "PLAYER", ENTITY_TREE = "TREE";
 
-	public EntityList() {
+	public EntityList(int start) {
+		next = start;
 		entities = new ArrayList<Entity>();
 	}
 
-	public Entity createEntity(String type, Direction dir,
-			HashMap<String, Object> props) {
-		Entity entity = null;
-		switch (type) {
-		case ENTITY_PLAYER:
-			entity = new Player(next, dir);
-			break;
-		case ENTITY_TREE:
-			entity = new Tree(next, dir);
-			break;
-		}
-		if (entity != null) {
-			next++;
-			entities.add(entity);
-			return entity;
-		}
-		throw new RuntimeException("Entity does not exist");
+	public int addEntity(Entity addEntity) {
+		addEntity.setID(next);
+		next++;
+		entities.add(addEntity);
+		return next - 1;
 	}
 
 	public Entity getEntity(int id) {

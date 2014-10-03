@@ -32,8 +32,8 @@ public class Map {
 
 	private final static int RANGE = 24;
 
-	public void render(int xLoc, int yLoc, double moveRatio,
-			Directional.Dir facing, Graphics g, EntityList entities, long time) {
+	public void render(int xLoc, int yLoc, double moveRatio, Direction facing,
+			Graphics g, EntityList entities, long time) {
 		int baseX = xLoc - RANGE;
 		if (baseX < 0) {
 			baseX = 0;

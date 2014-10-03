@@ -4,6 +4,7 @@ import input.InputWrapper;
 
 import java.util.HashMap;
 
+import mapstuff.Direction;
 import mapstuff.Map;
 import mapstuff.Tiles;
 import mapstuff.World;
@@ -56,15 +57,10 @@ public class GameStart extends BasicGame {
 				}
 			}
 		}
-		EntityList entities = new EntityList();
-		HashMap<String, Object> props = new HashMap<String, Object>();
-		props.put(Player.KEY_X, "50");
-		props.put(Player.KEY_Y, "50");
-		props.put(Player.KEY_CURRENT_HEALTH, "100");
-		props.put(Player.KEY_MAX_HEALTH, "100");
-		world = new World(new Map(tileTypes, tileHeights),
-				(Player) entities.createEntity(EntityList.ENTITY_PLAYER,
-						Direction.SOUTH_WEST, props), entities);
+		EntityList entities = new EntityList(0);
+		Player player = new Player(Direction.SOUTH_WEST, 0, 0);
+		entities.addEntity(player);
+		world = new World(new Map(tileTypes, tileHeights), player, entities);
 
 	}
 

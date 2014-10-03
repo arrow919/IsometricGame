@@ -64,7 +64,7 @@ public class Direction {
 	 * @param dir
 	 * @return
 	 */
-	public int getOridinal(Direction dir) {
-		return ordinals.indexOf(dir);
+	public int ordinal() {
+		return ordinals.indexOf(this);
 	}
 }
