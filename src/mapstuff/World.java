@@ -54,7 +54,7 @@ public class World {
 		return player;
 	}
 	
-	public void updateEntityEvents(){
-		entities.updateEvents();
+	public void processEvents(){
+		entities.processEvents(this);
 	}
 }

@@ -1,5 +1,7 @@
 package main;
 
+import input.InputWrapper;
+
 import java.util.HashMap;
 
 import mapstuff.Directional;
@@ -9,9 +11,9 @@ import mapstuff.World;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import entitystuff.EntityList;
@@ -72,7 +74,14 @@ public class GameStart extends BasicGame {
 	@Override
 	public void update(GameContainer container, int delta)
 			throws SlickException {
-		world.updateEntityEvents();
+		inputHandling();
+		world.processEvents();
+	}
+
+	private void inputHandling() {
+		int highestKey=Input.KEY_W;
+		long keyVal= InputWrapper.getKeyTime(Input.KEY_W);
+		if()
 	}
 
 	// The main method of the whole thing.
@@ -92,6 +101,16 @@ public class GameStart extends BasicGame {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void keyPressed(int key, char c) {
+		InputWrapper.setKey(key, true);
+	}
+
+	@Override
+	public void keyReleased(int key, char c) {
+		InputWrapper.setKey(key, false);
 	}
 
 }

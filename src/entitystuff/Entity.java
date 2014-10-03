@@ -9,9 +9,8 @@ import eventsystem.Event;
 public abstract class Entity {
 	public static final String KEY_X = "X", KEY_Y = "Y", KEY_DIRECTION = "DIR";
 	private final long id;
-	protected int x = -1, y = -1;
+	protected int x = 0, y = 0;
 	protected Directional.Dir dir = Directional.Dir.SOUTH;
-	protected HashMap<String, Object> properties;
 	public static final int ACTION_IDLE = 0, ACTION_WALKING = 1;
 	protected Event event = Event.DEAD_EVENT;
 
