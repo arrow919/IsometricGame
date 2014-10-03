@@ -39,11 +39,11 @@ public class Tile {
 	public void render(Graphics g, int x, int y, int elevation, long time) {
 		int additionalHeight = 0;
 		if (id == TYPE_OCEAN) {
-			additionalHeight += (Math.sin(x + (time / 15) % 256 / 128.0
+			additionalHeight += (Math.sin(x + (time / 10) % 512 / 256.0
 					* Math.PI) + 1) * 7;
 		}
-		int xiso = (x - y + 9) * Tiles.HALF_WIDTH;
-		int yiso = (x + y - 11) * Tiles.HALF_HEIGHT - elevation * 10
+		int xiso = (x - y + 18) * Tiles.HALF_WIDTH;
+		int yiso = (x + y - 28) * Tiles.HALF_HEIGHT - elevation * 10
 				+ additionalHeight;
 		xy[0] = xiso + Tiles.HALF_WIDTH;
 		xy[1] = yiso + Tiles.HALF_HEIGHT;

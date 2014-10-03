@@ -14,7 +14,7 @@ public abstract class Entity {
 	public static final int ACTION_IDLE = 0, ACTION_WALKING = 1;
 	protected Event event = Event.DEAD_EVENT;
 
-	public Entity(long id, HashMap<String, Object> props) {
+	public Entity(long id, Directional.Dir dir, HashMap<String, Object> props) {
 		this.id = id;
 		for (String e : props.keySet()) {
 			if (e.equals(KEY_X)) {
@@ -52,4 +52,6 @@ public abstract class Entity {
 	public void processEvent(World world) {
 		event.process(world);
 	}
+	
+	
 }

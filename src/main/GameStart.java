@@ -20,7 +20,7 @@ import entitystuff.EntityList;
 import entitystuff.Player;
 
 public class GameStart extends BasicGame {
-	public static final int WINDOW_WIDTH = 1000, WINDOW_HEIGHT = 700;
+	public static final int WINDOW_WIDTH = 1280, WINDOW_HEIGHT = 640;
 	// The map of the current game - almost everything is held here.
 	private World world;
 	public static final int TICK_TIME = 100;
@@ -64,10 +64,9 @@ public class GameStart extends BasicGame {
 		props.put(Player.KEY_CURRENT_HEALTH, "100");
 		props.put(Player.KEY_MAX_HEALTH, "100");
 		props.put(Player.KEY_DIRECTION, Directional.Dir.SOUTH);
-		world = new World(
-				new Map(tileTypes, tileHeights),
-				(Player) entities.createEntity(EntityList.ENTITY_PLAYER, props),
-				entities);
+		world = new World(new Map(tileTypes, tileHeights),
+				(Player) entities.createEntity(EntityList.ENTITY_PLAYER,
+						Directional.Dir.SOUTH_EAST, props), entities);
 
 	}
 
@@ -79,9 +78,17 @@ public class GameStart extends BasicGame {
 	}
 
 	private void inputHandling() {
-		int highestKey=Input.KEY_W;
-		long keyVal= InputWrapper.getKeyTime(Input.KEY_W);
-		if()
+		int x = 0;
+		int y = 0;
+		boolean w = InputWrapper.isKeyDown(Input.KEY_W);
+		boolean a = InputWrapper.isKeyDown(Input.KEY_A);
+		boolean s = InputWrapper.isKeyDown(Input.KEY_S);
+		boolean d = InputWrapper.isKeyDown(Input.KEY_D);
+		x -= w || a ? 1 : 0;
+		y += w || s ? 1 : 0;
+		x += d || s ? 1 : 0;
+		y -= d || w ? 1 : 0;
+		world.getPlayer().move(x, y);
 	}
 
 	// The main method of the whole thing.
@@ -105,12 +112,12 @@ public class GameStart extends BasicGame {
 
 	@Override
 	public void keyPressed(int key, char c) {
-		InputWrapper.setKey(key, true);
+		InputWrapper.setKey(key, System.currentTimeMillis());
 	}
 
 	@Override
 	public void keyReleased(int key, char c) {
-		InputWrapper.setKey(key, false);
+		InputWrapper.setKey(key, -1);
 	}
 
 }

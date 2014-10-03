@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import mapstuff.Directional;
 import mapstuff.World;
 
 public class EntityList {
@@ -15,14 +16,15 @@ public class EntityList {
 		entities = new ArrayList<Entity>();
 	}
 
-	public Entity createEntity(String type, HashMap<String, Object> props) {
+	public Entity createEntity(String type, Directional.Dir dir,
+			HashMap<String, Object> props) {
 		Entity entity = null;
 		switch (type) {
 		case ENTITY_PLAYER:
-			entity = new Player(next, props);
+			entity = new Player(next, dir, props);
 			break;
 		case ENTITY_TREE:
-			entity = new Tree(next, props);
+			entity = new Tree(next, dir, props);
 			break;
 		}
 		if (entity != null) {
@@ -49,8 +51,9 @@ public class EntityList {
 	public Iterator<Entity> iterator() {
 		return entities.iterator();
 	}
-	public void processEvents(World world){
-		for(Entity e: entities){
+
+	public void processEvents(World world) {
+		for (Entity e : entities) {
 			e.processEvent(world);
 		}
 	}

@@ -5,11 +5,13 @@ import io.EntitySpriteLoader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import mapstuff.Directional;
+import mapstuff.World;
+
 import org.newdawn.slick.SpriteSheet;
 
 import eventsystem.IdleEvent;
 import eventsystem.WASDEvent;
-import mapstuff.Directional;
 
 public class Player extends Entity {
 	public static final String KEY_CURRENT_HEALTH = "CURRENT_HEALTH",
@@ -18,9 +20,9 @@ public class Player extends Entity {
 	{
 		animations = new HashMap<Integer, ArrayList<Animation>>();
 		SpriteSheet armorSheet = EntitySpriteLoader.loadSheet(
-				"leather_armor.png", 128, 128);
+				"isometric_heroine/leather_armor.png", 128, 128);
 		ArrayList<Animation> idleAnimations = new ArrayList<Animation>();
-		for (int count = 0; count < 4; count++) {
+		for (int count = 0; count < 8; count++) {
 			idleAnimations.add(new Animation(armorSheet, new int[] { 0, 1, 2,
 					3, 3, 2, 1, 0 }, count, 200));
 		}
@@ -35,8 +37,8 @@ public class Player extends Entity {
 
 	}
 
-	public Player(long id, HashMap<String, Object> props) {
-		super(id, props);
+	public Player(long id, Directional.Dir dir, HashMap<String, Object> props) {
+		super(id, dir, props);
 	}
 
 	public void move(int x, int y) {
@@ -58,14 +60,14 @@ public class Player extends Entity {
 				.getFrame(time, event.getStartTime()).draw(x - 64, y - 100);
 	}
 
-	public boolean canMove() {
-		// TODO Add events that are cancellable when the player wants to move
-		return event instanceof IdleEvent;
+	private boolean canMove(int x, int y, World world) {
+		boolean currentEvent = event instanceof IdleEvent; //TODO add other events the player can cancel to move
+		return currentEvent;
 	}
 
-	public void wasdInput(Directional.Dir dir, long time) {
-		if (canMove()) {
-			event = new WASDEvent(this, null, time, dir);
+	public void wasdInput(int x, int y, World world) {
+		if (canMove(x, y)) {
+			event = new WASDEvent(this, null, System.currentTimeMillis(), dir);
 		}
 	}
 

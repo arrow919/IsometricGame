@@ -17,12 +17,18 @@ public class Map {
 		this.tileHeights = heights;
 	}
 
-	private final static int RANGE = 12;
+	private final static int RANGE = 24;
 
-	public void render(int xLoc, int yLoc, double moveRatio, Directional.Dir facing,
-			Graphics g, EntityList entities, long time) {
+	public void render(int xLoc, int yLoc, double moveRatio,
+			Directional.Dir facing, Graphics g, EntityList entities, long time) {
 		int baseX = xLoc - RANGE;
+		if (baseX < 0) {
+			baseX = 0;
+		}
 		int baseY = yLoc - RANGE;
+		if (baseY < 0) {
+			baseY = 0;
+		}
 		for (int curX = baseX; curX <= xLoc + RANGE; curX++) {
 			for (int curY = baseY; curY <= yLoc + RANGE; curY++) {
 				Tiles.renderTile(g, tileTypes[curX][curY], curX - baseX, curY
