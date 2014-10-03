@@ -70,7 +70,7 @@ public class Tiles {
 		tileObjects.get(type).render(g, x, y, elevation, time);
 	}
 
-	public static boolean isTileWalkable(int type, Directional.Dir dir) {
+	public static boolean isTileWalkable(int type, Direction dir) {
 		return tileObjects.get(type).isWalkable(dir);
 	}
 }

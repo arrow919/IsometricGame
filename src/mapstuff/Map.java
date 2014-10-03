@@ -2,7 +2,11 @@ package mapstuff;
 
 import java.util.Iterator;
 
+import main.GameStart;
+
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 
 import entitystuff.Entity;
 import entitystuff.EntityList;
@@ -11,10 +15,19 @@ public class Map {
 
 	private int[][] tileTypes;
 	private int[][] tileHeights;
+	private Image mapImg;
+	private Graphics mapGraphics;
 
 	public Map(int[][] types, int[][] heights) {
 		this.tileTypes = types;
 		this.tileHeights = heights;
+		try {
+			mapImg = new Image(GameStart.WINDOW_WIDTH, GameStart.WINDOW_HEIGHT);
+			mapGraphics = mapImg.getGraphics();
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private final static int RANGE = 24;

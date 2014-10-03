@@ -2,7 +2,7 @@ package entitystuff;
 
 import java.util.HashMap;
 
-import mapstuff.Directional;
+import mapstuff.Direction;
 import mapstuff.World;
 import eventsystem.Event;
 
@@ -10,21 +10,15 @@ public abstract class Entity {
 	public static final String KEY_X = "X", KEY_Y = "Y", KEY_DIRECTION = "DIR";
 	private final long id;
 	protected int x = 0, y = 0;
-	protected Directional.Dir dir = Directional.Dir.SOUTH;
+	protected Direction dir = new Direction(0, 1);
 	public static final int ACTION_IDLE = 0, ACTION_WALKING = 1;
 	protected Event event = Event.DEAD_EVENT;
 
-	public Entity(long id, Directional.Dir dir, HashMap<String, Object> props) {
+	public Entity(long id, Direction dir, int x, int y) {
 		this.id = id;
-		for (String e : props.keySet()) {
-			if (e.equals(KEY_X)) {
-				x = Integer.parseInt((String) props.get(KEY_X));
-			} else if (e.equals(KEY_Y)) {
-				y = Integer.parseInt((String) props.get(KEY_Y));
-			} else if (e.equals(KEY_DIRECTION)) {
-				dir = (Directional.Dir) props.get(KEY_DIRECTION);
-			}
-		}
+		this.dir = dir;
+		this.x = x;
+		this.y = y;
 	}
 
 	public int getX() {
@@ -35,11 +29,11 @@ public abstract class Entity {
 		return y;
 	}
 
-	public Directional.Dir getDirection() {
+	public Direction getDirection() {
 		return dir;
 	}
 
-	public void setDirection(Directional.Dir newdir) {
+	public void setDirection(Direction newdir) {
 		dir = newdir;
 	}
 
@@ -52,6 +46,5 @@ public abstract class Entity {
 	public void processEvent(World world) {
 		event.process(world);
 	}
-	
-	
+
 }

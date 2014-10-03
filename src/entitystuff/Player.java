@@ -5,7 +5,7 @@ import io.EntitySpriteLoader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import mapstuff.Directional;
+import mapstuff.Direction;
 import mapstuff.World;
 
 import org.newdawn.slick.SpriteSheet;
@@ -16,6 +16,7 @@ import eventsystem.WASDEvent;
 public class Player extends Entity {
 	public static final String KEY_CURRENT_HEALTH = "CURRENT_HEALTH",
 			KEY_MAX_HEALTH = "MAX_HEALTH";
+
 	private static HashMap<Integer, ArrayList<Animation>> animations;
 	{
 		animations = new HashMap<Integer, ArrayList<Animation>>();
@@ -37,8 +38,8 @@ public class Player extends Entity {
 
 	}
 
-	public Player(long id, Directional.Dir dir, HashMap<String, Object> props) {
-		super(id, dir, props);
+	public Player(long id, Direction dir, int x, int y) {
+		super(id, dir, x, y);
 	}
 
 	public void move(int x, int y) {
@@ -61,12 +62,16 @@ public class Player extends Entity {
 	}
 
 	private boolean canMove(int x, int y, World world) {
-		boolean currentEvent = event instanceof IdleEvent; //TODO add other events the player can cancel to move
+		boolean currentEvent = event instanceof IdleEvent; // TODO add other
+															// events the player
+															// can cancel to
+															// move
+
 		return currentEvent;
 	}
 
 	public void wasdInput(int x, int y, World world) {
-		if (canMove(x, y)) {
+		if (canMove(x, y, world)) {
 			event = new WASDEvent(this, null, System.currentTimeMillis(), dir);
 		}
 	}

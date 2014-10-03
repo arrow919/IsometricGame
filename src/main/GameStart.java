@@ -4,7 +4,6 @@ import input.InputWrapper;
 
 import java.util.HashMap;
 
-import mapstuff.Directional;
 import mapstuff.Map;
 import mapstuff.Tiles;
 import mapstuff.World;
@@ -63,10 +62,9 @@ public class GameStart extends BasicGame {
 		props.put(Player.KEY_Y, "50");
 		props.put(Player.KEY_CURRENT_HEALTH, "100");
 		props.put(Player.KEY_MAX_HEALTH, "100");
-		props.put(Player.KEY_DIRECTION, Directional.Dir.SOUTH);
 		world = new World(new Map(tileTypes, tileHeights),
 				(Player) entities.createEntity(EntityList.ENTITY_PLAYER,
-						Directional.Dir.SOUTH_EAST, props), entities);
+						Direction.SOUTH_WEST, props), entities);
 
 	}
 
@@ -88,7 +86,7 @@ public class GameStart extends BasicGame {
 		y += w || s ? 1 : 0;
 		x += d || s ? 1 : 0;
 		y -= d || w ? 1 : 0;
-		world.getPlayer().move(x, y);
+		world.getPlayer().wasdInput(x, y, world);
 	}
 
 	// The main method of the whole thing.
@@ -112,12 +110,12 @@ public class GameStart extends BasicGame {
 
 	@Override
 	public void keyPressed(int key, char c) {
-		InputWrapper.setKey(key, System.currentTimeMillis());
+		InputWrapper.setKey(key, true);
 	}
 
 	@Override
 	public void keyReleased(int key, char c) {
-		InputWrapper.setKey(key, -1);
+		InputWrapper.setKey(key, false);
 	}
 
 }

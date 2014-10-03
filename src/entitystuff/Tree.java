@@ -2,11 +2,11 @@ package entitystuff;
 
 import java.util.HashMap;
 
-import mapstuff.Directional;
+import mapstuff.Direction;
 
 public class Tree extends Entity {
-	public Tree(long id, Directional.Dir dir, HashMap<String, Object> props) {
-		super(id, dir, props);
+	public Tree(long id, Direction dir) {
+		super(id, dir);
 
 	}
 
