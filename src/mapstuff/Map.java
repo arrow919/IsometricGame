@@ -31,11 +31,10 @@ public class Map {
 	}
 
 	private final static int RANGE = 24;
-	private boolean rerender = true;
 
-	public void render(int xLoc, int yLoc, double moveRatio, Direction facing,
+	public void render(int xLoc, int yLoc, double xRatio, double yRatio,
 			Graphics g, EntityList entities, long time) {
-
+		Graphics.setCurrent(mapGraphics);
 		int baseX = xLoc - RANGE;
 		if (baseX < 0) {
 			baseX = 0;
@@ -58,6 +57,8 @@ public class Map {
 			}
 
 		}
+		Graphics.setCurrent(g);
+		g.drawImage(mapImg, 50, 50);
 	}
 
 	/**

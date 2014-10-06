@@ -39,12 +39,12 @@ public class Player extends Entity {
 
 	public Player(Direction dir, int x, int y) {
 		super(dir, x, y);
-		this.event = new IdleEvent(null, null, System.currentTimeMillis(), null);
+		event = new IdleEvent(this, null, System.currentTimeMillis(), null);
 	}
 
-	public void move(int x, int y) {
-		this.x += x;
-		this.y += y;
+	public void move(Direction dir) {
+		this.x += dir.x;
+		this.y += dir.y;
 	}
 
 	public void teleport(int x, int y) {
@@ -87,4 +87,17 @@ public class Player extends Entity {
 		}
 	}
 
+	public double getXRatio(long time) {
+		if (event instanceof WASDEvent) {
+			return ((WASDEvent) event).xOffset(time);
+		}
+		return 0;
+	}
+
+	public double getYRatio(long time) {
+		if (event instanceof WASDEvent) {
+			return ((WASDEvent) event).xOffset(time);
+		}
+		return 0;
+	}
 }

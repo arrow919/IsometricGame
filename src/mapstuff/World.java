@@ -20,8 +20,9 @@ public class World {
 	}
 
 	public void render(Graphics g) {
-		map.render(player.getX(), player.getY(), 0, player.getDirection(), g,
-				entities, System.currentTimeMillis());
+		long time = System.currentTimeMillis();
+		map.render(player.getX(), player.getY(), player.getXRatio(time),
+				player.getYRatio(time), g, entities, System.currentTimeMillis());
 		// TODO handle the move ratio of the player
 	}
 
@@ -56,7 +57,8 @@ public class World {
 	 *            The side of the tile to check.
 	 * @return
 	 */
-	public boolean walkable(int x, int y, Direction dir) {;
+	public boolean walkable(int x, int y, Direction dir) {
+		;
 		return map.walkable(x, y, dir);
 	}
 }

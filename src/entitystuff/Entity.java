@@ -61,4 +61,7 @@ public abstract class Entity {
 	public void setAnimation(int ani) {
 		animation = ani;
 	}
+	public void setEvent(Event e){
+		event=e;
+	}
 }

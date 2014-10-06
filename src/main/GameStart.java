@@ -31,6 +31,7 @@ public class GameStart extends BasicGame {
 	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
+		g.clear();
 		world.render(g);
 	}
 
@@ -48,7 +49,7 @@ public class GameStart extends BasicGame {
 		for (int x = 0; x < 100; x++) {
 			for (int y = 0; y < 100; y++) {
 				tileTypes[x][y] = 2;
-				if (x > 47 && x < 52 && y > 47 && y < 52) {
+				if (x > 47 && x < 53 && y > 47 && y < 53) {
 					tileTypes[x][y] = 1;
 					tileHeights[x][y] = 0;
 				}

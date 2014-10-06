@@ -9,7 +9,7 @@ public class IdleEvent extends Event {
 	public IdleEvent(Entity actor, Entity object, long startTime,
 			HashMap<String, Object> props) {
 		super(actor, object, startTime, props);
-		// TODO Auto-generated constructor stub
+		actor.setAnimation(0);
 	}
 
 	@Override

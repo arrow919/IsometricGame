@@ -25,8 +25,15 @@ public class WASDEvent extends Event {
 
 	@Override
 	public void process(World world) {
-		long time = System.currentTimeMillis();
-		// TODO Handle processing of movement
+		if (System.currentTimeMillis() - startTime >= moveTime) {
+			if (!startedSame) {
+				actor.setDirection(dir);
+				actor.setEvent(new IdleEvent(actor, null, 0, null));
+			} else {
+				((Player) actor).move(dir);
+				actor.setEvent(new IdleEvent(actor, null, 0, null));
+			}
+		}
 	}
 
 	/**
@@ -34,9 +41,9 @@ public class WASDEvent extends Event {
 	 * @return The signed value of -1 to 1 of where the player is in relation to
 	 *         the next spot
 	 */
-	public double xOffset() {
+	public double xOffset(long time) {
 		if (!dir.isNorthSouth()) {
-			return (System.currentTimeMillis() - startTime) / moveTime;
+			return (time - startTime) / moveTime * (dir.x > 0 ? 1 : -1);
 		}
 		return 0;
 	}
@@ -46,7 +53,10 @@ public class WASDEvent extends Event {
 	 * 
 	 * @return
 	 */
-	public double yOffset() {
-		return yOffset;
+	public double yOffset(long time) {
+		if (!dir.isEastWest()) {
+			return (time - startTime) / moveTime * (dir.y > 0 ? 1 : -1);
+		}
+		return 0;
 	}
 }
