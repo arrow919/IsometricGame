@@ -48,7 +48,7 @@ public class GameStart extends BasicGame {
 		for (int x = 0; x < 100; x++) {
 			for (int y = 0; y < 100; y++) {
 				tileTypes[x][y] = 2;
-				if (x > 45 && x < 55 && y > 45 && y < 55) {
+				if (x > 47 && x < 52 && y > 47 && y < 52) {
 					tileTypes[x][y] = 1;
 					tileHeights[x][y] = 0;
 				}

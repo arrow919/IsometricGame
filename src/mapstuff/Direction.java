@@ -19,16 +19,16 @@ public class Direction {
 			SOUTH_EAST = new Direction(1, 0), SOUTH = new Direction(1, 1),
 			SOUTH_WEST = new Direction(0, 1), WEST = new Direction(-1, 1),
 			NORTH_WEST = new Direction(-1, 0);
-	private static ArrayList<Direction> ordinals = new ArrayList<Direction>();
+	private static ArrayList<Direction> compass = new ArrayList<Direction>();
 	static {
-		ordinals.add(WEST);
-		ordinals.add(NORTH_WEST);
-		ordinals.add(NORTH);
-		ordinals.add(NORTH_EAST);
-		ordinals.add(EAST);
-		ordinals.add(SOUTH_EAST);
-		ordinals.add(SOUTH);
-		ordinals.add(SOUTH_WEST);
+		compass.add(WEST);
+		compass.add(NORTH_WEST);
+		compass.add(NORTH);
+		compass.add(NORTH_EAST);
+		compass.add(EAST);
+		compass.add(SOUTH_EAST);
+		compass.add(SOUTH);
+		compass.add(SOUTH_WEST);
 	}
 
 	private Direction(int x, int y) {
@@ -59,55 +59,80 @@ public class Direction {
 	}
 
 	/**
-	 * Returns the y index in a sprite sheet of the direction
-	 * 0=west, rotating clockwise (north-west =1, north=2, etc.)
+	 * Returns the y index in a sprite sheet of the direction 0=west, rotating
+	 * clockwise (north-west =1, north=2, etc.)
+	 * 
 	 * @param dir
 	 * @return
 	 */
 	public int ordinal() {
-		return ordinals.indexOf(this);
+		return compass.indexOf(this);
 	}
 
-	public static Direction getDir(int x, int y){
-		if(x<0){
-			if(y<0){
+	public static Direction getDir(int x, int y) {
+		if (x < 0) {
+			if (y < 0) {
 				return NORTH;
 			}
-			if(y==0){
+			if (y == 0) {
 				return NORTH_WEST;
 			}
-			if(y>0){
+			if (y > 0) {
 				return WEST;
 			}
 		}
-		if(x==0){
-			if(y<0){
+		if (x == 0) {
+			if (y < 0) {
 				return NORTH_EAST;
 			}
-			if(y>0){
+			if (y > 0) {
 				return SOUTH_WEST;
 			}
 		}
-		if(x>0){
-			if(y<0){
+		if (x > 0) {
+			if (y < 0) {
 				return EAST;
 			}
-			if(y==0){
+			if (y == 0) {
 				return SOUTH_EAST;
 			}
-			if(y>0){
+			if (y > 0) {
 				return SOUTH;
 			}
 		}
 		throw new RuntimeException("This direction does not exist, nerd.");
 	}
-	
+
 	@Override
-	public String toString(){
-		return x+", "+y;
+	public String toString() {
+		return x + ", " + y;
 	}
-	
-	public Direction opposite(){
-		return getDir(-x,-y);
+
+	public Direction opposite() {
+		return getDir(-x, -y);
+	}
+
+	public Direction clockwise() {
+		int index = compass.indexOf(this);
+		if (index == 7) {
+			return compass.get(0);
+		}
+		return compass.get(index + 1);
+	}
+
+	public Direction counterClockwise() {
+		int index = compass.indexOf(this);
+		if (index == 0) {
+			return compass.get(7);
+		}
+		return compass.get(index - 1);
+	}
+
+	public boolean isNorthSouth() {
+		return equals(NORTH) || equals(SOUTH);
+	}
+
+	public boolean isEastWest() {
+		return equals(EAST) || equals(WEST);
 	}
 }

@@ -62,10 +62,10 @@ public class Player extends Entity {
 	}
 
 	private boolean canMove(Direction dir, World world) {
+
 		boolean currentEvent = event instanceof IdleEvent;
 		boolean entityAt = world.isEntityAtTile(x + dir.x, y + dir.y);
-		boolean tileWalkable = world.walkable(x + dir.x, y + dir.y,
-				dir);
+		boolean tileWalkable = world.walkable(x, y, dir);
 		return currentEvent && !entityAt && tileWalkable;// TODO Add other
 															// qualifiers to
 															// move check here
@@ -74,7 +74,6 @@ public class Player extends Entity {
 	private ArrayList<Direction> lastFive = new ArrayList<Direction>();
 
 	public void wasdInput(Direction dir, World world) {
-		//System.out.println(dir);
 		for (Direction d : lastFive) {
 			if (!d.equals(dir)) {
 				lastFive.clear();
@@ -85,11 +84,9 @@ public class Player extends Entity {
 		if (lastFive.size() > 4) {
 			lastFive.remove(0);
 		}
-		
 		if (lastFive.size() == 4 && canMove(dir, world)) {
-			System.out.println("here");
-			//event = new WASDEvent(this, null, System.currentTimeMillis(),dir);
-		}
+			// event = new WASDEvent(this, null,
+			System.out.println(dir);		}
 	}
 
 }

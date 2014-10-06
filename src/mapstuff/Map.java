@@ -63,7 +63,10 @@ public class Map {
 
 	/**
 	 * Returns whether the tile is walkable in the direction dir E.g. a dir of
-	 * SOUTH_WEST will check the upper left side
+	 * SOUTH_WEST will check the lower left side, and a dir of WEST will check
+	 * both SOUTH_WEST and NORTH_WEST. It checks both the current tile, the tile
+	 * you're moving into, and if it's a diagonal (through 4 tiles), it will
+	 * check all four.
 	 * 
 	 * @param x
 	 *            The x of the tile
@@ -74,15 +77,38 @@ public class Map {
 	 * @return
 	 */
 	public boolean walkable(int x, int y, Direction dir) {
+		int changeX = x + dir.x;
+		int changeY = y + dir.y;
 		if (Tiles.isTileWalkable(getTileType(x, y), dir)
-				&& Tiles.isTileWalkable(getTileType(x + dir.x, y + dir.y), dir.opposite())) {
+				&& Tiles.isTileWalkable(getTileType(changeX, changeY),
+						dir.opposite())) {
 			if (dir.x == 0 || dir.y == 0) {
 				return true;
 			}
-
-			int changeX = x + dir.x;
-			int changeY = y + dir.y;
-			
+			if (dir.equals(Direction.EAST)) {
+				return Tiles.isTileWalkable(getTileType(changeX, y),
+						Direction.SOUTH)
+						&& Tiles.isTileWalkable(getTileType(x, changeY),
+								Direction.NORTH);
+			}
+			if (dir.equals(Direction.WEST)) {
+				return Tiles.isTileWalkable(getTileType(changeX, y),
+						Direction.NORTH)
+						&& Tiles.isTileWalkable(getTileType(x, changeY),
+								Direction.SOUTH);
+			}
+			if (dir.equals(Direction.NORTH)) {
+				return Tiles.isTileWalkable(getTileType(changeX, y),
+						Direction.EAST)
+						&& Tiles.isTileWalkable(getTileType(x, changeY),
+								Direction.WEST);
+			}
+			if (dir.equals(Direction.SOUTH)) {
+				return Tiles.isTileWalkable(getTileType(changeX, y),
+						Direction.WEST)
+						&& Tiles.isTileWalkable(getTileType(x, changeY),
+								Direction.EAST);
+			}
 		}
 		return false;
 	}
