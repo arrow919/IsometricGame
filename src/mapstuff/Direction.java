@@ -31,7 +31,7 @@ public class Direction {
 		ordinals.add(SOUTH_WEST);
 	}
 
-	public Direction(int x, int y) {
+	private Direction(int x, int y) {
 		this.x = toOne(x);
 		this.y = toOne(y);
 	}
@@ -60,11 +60,54 @@ public class Direction {
 
 	/**
 	 * Returns the y index in a sprite sheet of the direction
-	 * 
+	 * 0=west, rotating clockwise (north-west =1, north=2, etc.)
 	 * @param dir
 	 * @return
 	 */
 	public int ordinal() {
 		return ordinals.indexOf(this);
+	}
+
+	public static Direction getDir(int x, int y){
+		if(x<0){
+			if(y<0){
+				return NORTH;
+			}
+			if(y==0){
+				return NORTH_WEST;
+			}
+			if(y>0){
+				return WEST;
+			}
+		}
+		if(x==0){
+			if(y<0){
+				return NORTH_EAST;
+			}
+			if(y>0){
+				return SOUTH_WEST;
+			}
+		}
+		if(x>0){
+			if(y<0){
+				return EAST;
+			}
+			if(y==0){
+				return SOUTH_EAST;
+			}
+			if(y>0){
+				return SOUTH;
+			}
+		}
+		throw new RuntimeException("This direction does not exist, nerd.");
+	}
+	
+	@Override
+	public String toString(){
+		return x+", "+y;
+	}
+	
+	public Direction opposite(){
+		return getDir(-x,-y);
 	}
 }

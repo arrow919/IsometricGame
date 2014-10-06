@@ -1,7 +1,5 @@
 package entitystuff;
 
-import java.util.HashMap;
-
 import mapstuff.Direction;
 import mapstuff.World;
 import eventsystem.Event;
@@ -10,16 +8,21 @@ public abstract class Entity {
 	public static final String KEY_X = "X", KEY_Y = "Y", KEY_DIRECTION = "DIR";
 	private long id;
 	protected int x = 0, y = 0;
-	protected Direction dir = new Direction(0, 1);
+	protected Direction dir = Direction.SOUTH_WEST;
 	public static final int ACTION_IDLE = 0, ACTION_WALKING = 1;
 	protected Event event = Event.DEAD_EVENT;
-
+	private int width=1,height=1;
 	public Entity(Direction dir, int x, int y) {
 		this.dir = dir;
 		this.x = x;
 		this.y = y;
 	}
-
+	public boolean usesTile(int x, int y){
+		if(x>=this.x&&y>=this.y){
+			return x<this.x+width && y<this.y+height;
+		}
+		return false;
+	}
 	public int getX() {
 		return x;
 	}

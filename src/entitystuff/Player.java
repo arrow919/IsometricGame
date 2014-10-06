@@ -40,6 +40,7 @@ public class Player extends Entity {
 
 	public Player(Direction dir, int x, int y) {
 		super(dir, x, y);
+		this.event = new IdleEvent(null, null, System.currentTimeMillis(), null);
 	}
 
 	public void move(int x, int y) {
@@ -56,23 +57,38 @@ public class Player extends Entity {
 
 	@Override
 	public void render(int x, int y, long time) {
-
-		animations.get(animation).get(dir.ordinal()).getFrame(time, event.getStartTime())
-				.draw(x - 64, y - 100);
+		animations.get(animation).get(dir.ordinal())
+				.getFrame(time, event.getStartTime()).draw(x - 64, y - 100);
 	}
 
-	private boolean canMove(int x, int y, World world) {
-		boolean currentEvent = event instanceof IdleEvent; // TODO add other
-															// events the player
-															// can cancel to
-															// move
-
-		return currentEvent;
+	private boolean canMove(Direction dir, World world) {
+		boolean currentEvent = event instanceof IdleEvent;
+		boolean entityAt = world.isEntityAtTile(x + dir.x, y + dir.y);
+		boolean tileWalkable = world.walkable(x + dir.x, y + dir.y,
+				dir);
+		return currentEvent && !entityAt && tileWalkable;// TODO Add other
+															// qualifiers to
+															// move check here
 	}
 
-	public void wasdInput(int x, int y, World world) {
-		if (canMove(x, y, world)) {
-			event = new WASDEvent(this, null, System.currentTimeMillis(), dir);
+	private ArrayList<Direction> lastFive = new ArrayList<Direction>();
+
+	public void wasdInput(Direction dir, World world) {
+		//System.out.println(dir);
+		for (Direction d : lastFive) {
+			if (!d.equals(dir)) {
+				lastFive.clear();
+				break;
+			}
+		}
+		lastFive.add(dir);
+		if (lastFive.size() > 4) {
+			lastFive.remove(0);
+		}
+		
+		if (lastFive.size() == 4 && canMove(dir, world)) {
+			System.out.println("here");
+			//event = new WASDEvent(this, null, System.currentTimeMillis(),dir);
 		}
 	}
 

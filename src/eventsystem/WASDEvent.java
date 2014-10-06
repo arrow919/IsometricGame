@@ -15,7 +15,6 @@ public class WASDEvent extends Event {
 		if (actor.getDirection().equals(dir)) {
 			startedSame = true;
 		}
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

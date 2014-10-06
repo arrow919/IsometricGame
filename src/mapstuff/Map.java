@@ -35,7 +35,8 @@ public class Map {
 
 	public void render(int xLoc, int yLoc, double moveRatio, Direction facing,
 			Graphics g, EntityList entities, long time) {
-		if (rerender) {//TODO setup the rerendering so u don't waste frames dummy
+		if (rerender) {// TODO setup the rerendering so u don't waste frames
+						// dummy
 			int baseX = xLoc - RANGE;
 			if (baseX < 0) {
 				baseX = 0;
@@ -58,6 +59,32 @@ public class Map {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Returns whether the tile is walkable in the direction dir E.g. a dir of
+	 * SOUTH_WEST will check the upper left side
+	 * 
+	 * @param x
+	 *            The x of the tile
+	 * @param y
+	 *            The y of the tile
+	 * @param dir
+	 *            The side of the tile to check.
+	 * @return
+	 */
+	public boolean walkable(int x, int y, Direction dir) {
+		if (Tiles.isTileWalkable(getTileType(x, y), dir)
+				&& Tiles.isTileWalkable(getTileType(x + dir.x, y + dir.y), dir.opposite())) {
+			if (dir.x == 0 || dir.y == 0) {
+				return true;
+			}
+
+			int changeX = x + dir.x;
+			int changeY = y + dir.y;
+			
+		}
+		return false;
 	}
 
 	public int getTileType(int x, int y) {

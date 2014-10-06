@@ -14,7 +14,7 @@ public class Tile {
 	private final int id;
 	private final String name;
 	private final Image texture;
-	private boolean[] walkable = new boolean[4];
+	private boolean[] walkable = new boolean[8];
 	private boolean boatOnly;
 
 	public Tile(HashMap<String, Object> map) {
@@ -22,11 +22,15 @@ public class Tile {
 		name = (String) map.get(KEY_NAME);
 		texture = (Image) map.get(KEY_TEXTURE);
 		String tempWalkable = (String) map.get(KEY_WALKABLE);
-		String[] split = tempWalkable.split("");
-		walkable[0] = split[0].equals("1");
-		walkable[1] = split[1].equals("1");
-		walkable[2] = split[2].equals("1");
-		walkable[3] = split[3].equals("1");
+		String[] split = tempWalkable.split(",");
+		walkable[1] = split[0].equals("1");
+		walkable[3] = split[1].equals("1");
+		walkable[5] = split[2].equals("1");
+		walkable[7] = split[3].equals("1");
+		walkable[0] = walkable[7] && walkable[1];
+		walkable[2] = walkable[1] && walkable[3];
+		walkable[6] = walkable[5] && walkable[7];
+		walkable[4] = walkable[3] && walkable[5];
 		boatOnly = ((String) map.get(KEY_BOAT_ONLY)).equals("1");
 
 	}
@@ -52,11 +56,13 @@ public class Tile {
 
 	}
 
+	/**
+	 * 
+	 * @param dir
+	 * @return
+	 */
 	public boolean isWalkable(Direction dir) {
-		if (dir.equals(Direction.NORTH_EAST)) {
-
-		}
-		return !boatOnly && walkable[dir.ordinal() / 2];
+		return !boatOnly && walkable[dir.ordinal()];
 	}
 
 	public boolean isBoatable() {

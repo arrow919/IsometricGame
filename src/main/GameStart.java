@@ -55,7 +55,7 @@ public class GameStart extends BasicGame {
 			}
 		}
 		EntityList entities = new EntityList(0);
-		Player player = new Player(Direction.EAST, 50, 50);
+		Player player = new Player(Direction.SOUTH_WEST, 50, 50);
 		entities.addEntity(player);
 		world = new World(new Map(tileTypes, tileHeights), player, entities);
 	}
@@ -75,10 +75,12 @@ public class GameStart extends BasicGame {
 		boolean s = InputWrapper.isKeyDown(Input.KEY_S);
 		boolean d = InputWrapper.isKeyDown(Input.KEY_D);
 		x -= w || a ? 1 : 0;
-		y += w || s ? 1 : 0;
-		x += d || s ? 1 : 0;
-		y -= d || w ? 1 : 0;
-		world.getPlayer().wasdInput(x, y, world);
+		y -= w || d ? 1 : 0;
+		x += s || d ? 1 : 0;
+		y += s || a ? 1 : 0;
+		if (!(x == 0 && y == 0)) {
+			world.getPlayer().wasdInput(Direction.getDir(x, y), world);
+		}
 	}
 
 	// The main method of the whole thing.
