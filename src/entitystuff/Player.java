@@ -16,9 +16,8 @@ import eventsystem.WASDEvent;
 public class Player extends Entity {
 	public static final String KEY_CURRENT_HEALTH = "CURRENT_HEALTH",
 			KEY_MAX_HEALTH = "MAX_HEALTH";
-
 	private static HashMap<Integer, ArrayList<Animation>> animations;
-	{
+	static {
 		animations = new HashMap<Integer, ArrayList<Animation>>();
 		SpriteSheet armorSheet = EntitySpriteLoader.loadSheet(
 				"isometric_heroine/clothes.png", 128, 128);
@@ -30,7 +29,7 @@ public class Player extends Entity {
 		animations.put(Entity.ACTION_IDLE, idleAnimations);
 
 		ArrayList<Animation> walkAnimations = new ArrayList<Animation>();
-		for (int count = 0; count < 4; count++) {
+		for (int count = 0; count < 8; count++) {
 			walkAnimations.add(new Animation(armorSheet, new int[] { 4, 5, 6,
 					7, 8, 9, 10, 11 }, count, 250));
 		}
@@ -52,8 +51,6 @@ public class Player extends Entity {
 		this.x = x;
 		this.y = y;
 	}
-
-	private int animation;
 
 	@Override
 	public void render(int x, int y, long time) {
@@ -85,8 +82,9 @@ public class Player extends Entity {
 			lastFive.remove(0);
 		}
 		if (lastFive.size() == 4 && canMove(dir, world)) {
-			// event = new WASDEvent(this, null,
-			System.out.println(dir);		}
+			event = new WASDEvent(this, null, System.currentTimeMillis(), dir);
+			System.out.println(dir);
+		}
 	}
 
 }

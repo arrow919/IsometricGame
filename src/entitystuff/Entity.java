@@ -11,18 +11,21 @@ public abstract class Entity {
 	protected Direction dir = Direction.SOUTH_WEST;
 	public static final int ACTION_IDLE = 0, ACTION_WALKING = 1;
 	protected Event event = Event.DEAD_EVENT;
-	private int width=1,height=1;
+	private int width = 1, height = 1;
+
 	public Entity(Direction dir, int x, int y) {
 		this.dir = dir;
 		this.x = x;
 		this.y = y;
 	}
-	public boolean usesTile(int x, int y){
-		if(x>=this.x&&y>=this.y){
-			return x<this.x+width && y<this.y+height;
+
+	public boolean usesTile(int x, int y) {
+		if (x >= this.x && y >= this.y) {
+			return x < this.x + width && y < this.y + height;
 		}
 		return false;
 	}
+
 	public int getX() {
 		return x;
 	}
@@ -53,4 +56,9 @@ public abstract class Entity {
 		this.id = id;
 	}
 
+	protected int animation;
+
+	public void setAnimation(int ani) {
+		animation = ani;
+	}
 }
