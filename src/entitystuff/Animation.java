@@ -26,7 +26,6 @@ public class Animation {
 	}
 
 	public Image getFrame(long time, long startTime) {
-		System.out.println("getting frame "+startTime);
 		return frames.get((int) ((time - startTime) / runtime % frames.size()));
 	}
 }

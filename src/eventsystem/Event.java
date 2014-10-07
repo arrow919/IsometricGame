@@ -11,11 +11,13 @@ public class Event {
 	public static final Event DEAD_EVENT = new Event(null, null,
 			System.currentTimeMillis(), null);
 	protected long startTime;
-	protected int id=0;
+	protected int id = 0;
+
 	protected Event(Entity actor, Entity object, long time,
 			HashMap<String, Object> props) {
 		this.actor = actor;
 		this.object = object;
+		this.startTime = time;
 	}
 
 	public void process(World world) {

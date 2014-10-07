@@ -8,18 +8,21 @@ import entitystuff.Player;
 public class WASDEvent extends Event {
 	private final Direction dir;
 	private boolean startedSame = false;
-	private long moveTime = 1000;
+	private long moveTime = 500;
 
 	public WASDEvent(Player actor, Entity object, long time, Direction dir) {
 		super(actor, object, time, null);
 		id = 1;
-		actor.setAnimation(id);
 		this.dir = dir;
+		if (dir.isEastWest() || dir.isNorthSouth()) {
+			moveTime = (int) (moveTime * 1.414f);
+		}
 		if (actor.getDirection().equals(dir)) {
 			startedSame = true;
-		}
-		if (dir.isEastWest() || dir.isNorthSouth()) {
-			moveTime = 1414;
+			actor.setAnimation(id);
+		} else {
+			actor.setDirection(dir);
+			moveTime/=5;
 		}
 	}
 
@@ -27,11 +30,11 @@ public class WASDEvent extends Event {
 	public void process(World world) {
 		if (System.currentTimeMillis() - startTime >= moveTime) {
 			if (!startedSame) {
-				actor.setDirection(dir);
 				actor.setEvent(new IdleEvent(actor, null, 0, null));
 			} else {
 				((Player) actor).move(dir);
 				actor.setEvent(new IdleEvent(actor, null, 0, null));
+				System.out.println("Here 12345");
 			}
 		}
 	}
