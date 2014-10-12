@@ -8,6 +8,7 @@ import java.util.HashMap;
 import mapstuff.Direction;
 import mapstuff.World;
 
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SpriteSheet;
 
 import eventsystem.IdleEvent;
@@ -53,7 +54,7 @@ public class Player extends Entity {
 	}
 
 	@Override
-	public void render(int x, int y, long time) {
+	public void render(Graphics mapGraphics, int x, int y, long time) {
 		animations.get(animation).get(dir.ordinal())
 				.getFrame(time, event.getStartTime()).draw(x - 64, y - 100);
 	}

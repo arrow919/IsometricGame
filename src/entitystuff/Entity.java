@@ -2,6 +2,9 @@ package entitystuff;
 
 import mapstuff.Direction;
 import mapstuff.World;
+
+import org.newdawn.slick.Graphics;
+
 import eventsystem.Event;
 
 public abstract class Entity {
@@ -42,7 +45,7 @@ public abstract class Entity {
 		dir = newdir;
 	}
 
-	public abstract void render(int x, int y, long time);
+	public abstract void render(Graphics mapGraphics, int x, int y, long time);
 
 	public long getID() {
 		return id;

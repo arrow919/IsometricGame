@@ -34,6 +34,7 @@ public class Map {
 
 	public void render(int xLoc, int yLoc, double xRatio, double yRatio,
 			Graphics g, EntityList entities, long time) {
+		mapGraphics.clear();
 		int baseX = xLoc - RANGE;
 		if (baseX < 0) {
 			baseX = 0;
@@ -44,15 +45,13 @@ public class Map {
 		}
 		for (int curX = baseX; curX <= xLoc + RANGE; curX++) {
 			for (int curY = baseY; curY <= yLoc + RANGE; curY++) {
-				Tiles.renderTile(g, tileTypes[curX][curY], curX - baseX, curY
-						- baseY, tileHeights[curX][curY], time, centerXOffset,
-						centerYOffset);
+				Tiles.renderTile(mapGraphics, tileTypes[curX][curY], curX - baseX, curY
+						- baseY, tileHeights[curX][curY], time);
 				Iterator<Entity> it = entities.iterator();
 				while (it.hasNext()) {
 					Entity en = it.next();
 					if (en.getX() == curX && en.getY() == curY) {
-						en.render(Tile.xy[0], Tile.xy[1], time, centerXOffset,
-								centerYOffset);
+						en.render(mapGraphics, Tile.xy[0], Tile.xy[1], time);
 					}
 				}
 			}
