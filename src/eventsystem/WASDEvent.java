@@ -22,7 +22,7 @@ public class WASDEvent extends Event {
 			actor.setAnimation(id);
 		} else {
 			actor.setDirection(dir);
-			moveTime/=5;
+			moveTime /= 5;
 		}
 	}
 
@@ -45,10 +45,13 @@ public class WASDEvent extends Event {
 	 *         the next spot
 	 */
 	public double xOffset(long time) {
+		double val = 0;
 		if (!dir.isNorthSouth()) {
-			return (time - startTime) / moveTime * (dir.x > 0 ? 1 : -1);
+			System.out.println((time-startTime)/(double)moveTime);
+			val = (time - startTime) / (double)moveTime * (dir.x > 0 ? 1 : -1);
+			//System.out.println("xOffset: " + val);
 		}
-		return 0;
+		return val;
 	}
 
 	/**
@@ -57,9 +60,11 @@ public class WASDEvent extends Event {
 	 * @return
 	 */
 	public double yOffset(long time) {
+		double val = 0;
 		if (!dir.isEastWest()) {
-			return (time - startTime) / moveTime * (dir.y > 0 ? 1 : -1);
+			val = (time - startTime) / moveTime * (dir.y > 0 ? 1 : -1);
+			//System.out.println("yOffset: " + val);
 		}
-		return 0;
+		return val;
 	}
 }

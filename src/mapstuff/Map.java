@@ -10,31 +10,22 @@ import org.newdawn.slick.SlickException;
 
 import entitystuff.Entity;
 import entitystuff.EntityList;
+import entitystuff.Player;
 
 public class Map {
 
 	private int[][] tileTypes;
 	private int[][] tileHeights;
-	private Image mapImg;
-	private Graphics mapGraphics;
 
 	public Map(int[][] types, int[][] heights) {
 		this.tileTypes = types;
 		this.tileHeights = heights;
-		try {
-			mapImg = new Image(GameStart.WINDOW_WIDTH, GameStart.WINDOW_HEIGHT);
-			mapGraphics = mapImg.getGraphics();
-		} catch (SlickException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	private final static int RANGE = 24;
 
 	public void render(int xLoc, int yLoc, double xRatio, double yRatio,
 			Graphics g, EntityList entities, long time) {
-		mapGraphics.clear();
 		int baseX = xLoc - RANGE;
 		if (baseX < 0) {
 			baseX = 0;
@@ -45,20 +36,29 @@ public class Map {
 		}
 		for (int curX = baseX; curX <= xLoc + RANGE; curX++) {
 			for (int curY = baseY; curY <= yLoc + RANGE; curY++) {
-				Tiles.renderTile(mapGraphics, tileTypes[curX][curY], curX - baseX, curY
+				int additionalHeight = 0;
+				if (tileTypes[curX][curY] == Tile.TYPE_OCEAN) {
+					additionalHeight += (Math.sin(curX + (time / 10) % 512
+							/ 256.0 * Math.PI) + 1) * 7;
+				}
+				int xiso = (curX - curY + 18) * Tiles.HALF_WIDTH;
+				int yiso = (curX + curY - 28) * Tiles.HALF_HEIGHT
+						- tileHeights[curX][curY] * 10 + additionalHeight;
+				Tiles.renderTile(tileTypes[curX][curY], curX - baseX, curY
 						- baseY, tileHeights[curX][curY], time);
 				Iterator<Entity> it = entities.iterator();
 				while (it.hasNext()) {
 					Entity en = it.next();
 					if (en.getX() == curX && en.getY() == curY) {
+						if (en instanceof Player) {
+							en.render(g, curX, curY, time);
+						}
 						en.render(mapGraphics, Tile.xy[0], Tile.xy[1], time);
 					}
 				}
 			}
 
 		}
-		Graphics.setCurrent(g);
-		g.drawImage(mapImg, 50, 50);
 	}
 
 	/**

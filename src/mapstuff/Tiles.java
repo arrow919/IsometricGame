@@ -63,9 +63,9 @@ public class Tiles {
 		}
 	}
 
-	public static void renderTile(Graphics g, int type, int x, int y,
-			int elevation, long time) {
-		tileObjects.get(type).render(g, x, y, elevation, time);
+	public static void renderTile(int type, int x, int y, int elevation,
+			long time) {
+		tileObjects.get(type).render(x, y, elevation, time);
 	}
 
 	public static boolean isTileWalkable(int type, Direction dir) {

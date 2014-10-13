@@ -5,6 +5,7 @@ import io.EntitySpriteLoader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import main.GameStart;
 import mapstuff.Direction;
 import mapstuff.World;
 
@@ -32,7 +33,7 @@ public class Player extends Entity {
 		ArrayList<Animation> walkAnimations = new ArrayList<Animation>();
 		for (int count = 0; count < 8; count++) {
 			walkAnimations.add(new Animation(armorSheet, new int[] { 4, 5, 6,
-					7, 8, 9, 10, 11 }, count, 250));
+					7, 8, 9, 10, 11 }, count, 150));
 		}
 		animations.put(Entity.ACTION_WALKING, walkAnimations);
 
@@ -55,8 +56,12 @@ public class Player extends Entity {
 
 	@Override
 	public void render(Graphics mapGraphics, int x, int y, long time) {
-		animations.get(animation).get(dir.ordinal())
-				.getFrame(time, event.getStartTime()).draw(x - 64, y - 100);
+		animations
+				.get(animation)
+				.get(dir.ordinal())
+				.getFrame(time, event.getStartTime())
+				.draw(GameStart.WINDOW_WIDTH / 2 - 64,
+						GameStart.WINDOW_HEIGHT / 2 - 100);
 	}
 
 	private boolean canMove(Direction dir, World world) {
@@ -84,7 +89,6 @@ public class Player extends Entity {
 		}
 		if (lastFive.size() == 4 && canMove(dir, world)) {
 			event = new WASDEvent(this, null, System.currentTimeMillis(), dir);
-			System.out.println(dir);
 		}
 	}
 
@@ -97,7 +101,7 @@ public class Player extends Entity {
 
 	public double getYRatio(long time) {
 		if (event instanceof WASDEvent) {
-			return ((WASDEvent) event).xOffset(time);
+			return ((WASDEvent) event).yOffset(time);
 		}
 		return 0;
 	}

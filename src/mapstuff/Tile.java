@@ -35,24 +35,9 @@ public class Tile {
 
 	}
 
-	public static Random ran = new Random();
-	public static final int[] xy = new int[2];
 
-	public void render(Graphics g, int x, int y, int elevation, long time) {
-		int additionalHeight = 0;
-		if (id == TYPE_OCEAN) {
-			additionalHeight += (Math.sin(x + (time / 10) % 512 / 256.0
-					* Math.PI) + 1) * 7;
-		}
-		int xiso = (x - y + 18) * Tiles.HALF_WIDTH;
-		int yiso = (x + y - 28) * Tiles.HALF_HEIGHT - elevation * 10
-				+ additionalHeight;
-		xy[0] = xiso + Tiles.HALF_WIDTH;
-		xy[1] = yiso + Tiles.HALF_HEIGHT;
-		if (id == TYPE_VOID) {
-			return;
-		}
-		g.drawImage(texture, xiso, yiso);
+	public void render(int x, int y) {
+		texture.draw(x, y);
 
 	}
 
