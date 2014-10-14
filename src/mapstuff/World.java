@@ -19,10 +19,10 @@ public class World {
 		this.map = map;
 	}
 
-	public void render(Graphics g) {
+	public void render() {
 		long time = System.currentTimeMillis();
-		map.render(player.getX(), player.getY(), player.getXRatio(time),
-				player.getYRatio(time), g, entities, System.currentTimeMillis());
+		map.render(player.getX(), player.getY(), player.getXOffset(time),
+				player.getYOffset(time), entities, System.currentTimeMillis());
 		// TODO handle the move ratio of the player
 	}
 

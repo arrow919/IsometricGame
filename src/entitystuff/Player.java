@@ -55,7 +55,7 @@ public class Player extends Entity {
 	}
 
 	@Override
-	public void render(Graphics mapGraphics, int x, int y, long time) {
+	public void render(int x, int y, long time) {
 		animations
 				.get(animation)
 				.get(dir.ordinal())
@@ -92,14 +92,14 @@ public class Player extends Entity {
 		}
 	}
 
-	public double getXRatio(long time) {
+	public int getXOffset(long time) {
 		if (event instanceof WASDEvent) {
 			return ((WASDEvent) event).xOffset(time);
 		}
 		return 0;
 	}
 
-	public double getYRatio(long time) {
+	public int getYOffset(long time) {
 		if (event instanceof WASDEvent) {
 			return ((WASDEvent) event).yOffset(time);
 		}

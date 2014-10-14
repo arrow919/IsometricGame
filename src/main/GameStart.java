@@ -32,7 +32,7 @@ public class GameStart extends BasicGame {
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
 		g.clear();
-		world.render(g);
+		world.render();
 	}
 
 	// Method is called before any rendering or updating happens.
@@ -45,20 +45,18 @@ public class GameStart extends BasicGame {
 	public void loadWorld() {
 		// TODO map loading stuff
 		int[][] tileTypes = new int[100][100];
-		int[][] tileHeights = new int[100][100];
 		for (int x = 0; x < 100; x++) {
 			for (int y = 0; y < 100; y++) {
 				tileTypes[x][y] = 2;
 				if (x > 47 && x < 53 && y > 47 && y < 53) {
 					tileTypes[x][y] = 1;
-					tileHeights[x][y] = 0;
 				}
 			}
 		}
 		EntityList entities = new EntityList(0);
 		Player player = new Player(Direction.SOUTH_WEST, 50, 50);
 		entities.addEntity(player);
-		world = new World(new Map(tileTypes, tileHeights), player, entities);
+		world = new World(new Map(tileTypes), player, entities);
 	}
 
 	@Override

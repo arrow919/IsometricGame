@@ -15,17 +15,15 @@ import entitystuff.Player;
 public class Map {
 
 	private int[][] tileTypes;
-	private int[][] tileHeights;
 
-	public Map(int[][] types, int[][] heights) {
+	public Map(int[][] types) {
 		this.tileTypes = types;
-		this.tileHeights = heights;
 	}
 
 	private final static int RANGE = 24;
 
-	public void render(int xLoc, int yLoc, double xRatio, double yRatio,
-			Graphics g, EntityList entities, long time) {
+	public void render(int xLoc, int yLoc, int xMoveOffset, int yMoveOffset,
+			EntityList entities, long time) {
 		int baseX = xLoc - RANGE;
 		if (baseX < 0) {
 			baseX = 0;
@@ -41,19 +39,21 @@ public class Map {
 					additionalHeight += (Math.sin(curX + (time / 10) % 512
 							/ 256.0 * Math.PI) + 1) * 7;
 				}
-				int xiso = (curX - curY + 18) * Tiles.HALF_WIDTH;
-				int yiso = (curX + curY - 28) * Tiles.HALF_HEIGHT
-						- tileHeights[curX][curY] * 10 + additionalHeight;
-				Tiles.renderTile(tileTypes[curX][curY], curX - baseX, curY
-						- baseY, tileHeights[curX][curY], time);
+				int x = curX - baseX;
+				int y = curY - baseY;
+				int xiso = (x - y + 20) * Tiles.HALF_WIDTH;
+				int yiso = (x + y - 28) * Tiles.HALF_HEIGHT + additionalHeight;
+				Tiles.renderTile(tileTypes[curX][curY], xiso - xMoveOffset,
+						yiso - yMoveOffset);
 				Iterator<Entity> it = entities.iterator();
 				while (it.hasNext()) {
 					Entity en = it.next();
 					if (en.getX() == curX && en.getY() == curY) {
 						if (en instanceof Player) {
-							en.render(g, curX, curY, time);
+							en.render(curX, curY, time);
+						} else {
+							en.render(xiso, yiso, time);
 						}
-						en.render(mapGraphics, Tile.xy[0], Tile.xy[1], time);
 					}
 				}
 			}

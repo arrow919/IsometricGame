@@ -37,7 +37,7 @@ public class Tile {
 
 
 	public void render(int x, int y) {
-		texture.draw(x, y);
+		texture.draw(x-32, y-16);
 
 	}
 

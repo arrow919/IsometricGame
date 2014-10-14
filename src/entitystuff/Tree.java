@@ -24,9 +24,9 @@ public class Tree extends Entity {
 	}
 
 	@Override
-	public void render(Graphics mapGraphics, int x, int y, long time) {
+	public void render(int x, int y, long time) {
 		// TODO Figure out the rendering for Tree
-		mapGraphics.drawImage(image, x - 64, y - 100);
+		image.draw(x - 64, y - 64);
 	}
 
 }

@@ -1,6 +1,7 @@
 package eventsystem;
 
 import mapstuff.Direction;
+import mapstuff.Tiles;
 import mapstuff.World;
 import entitystuff.Entity;
 import entitystuff.Player;
@@ -44,27 +45,33 @@ public class WASDEvent extends Event {
 	 * @return The signed value of -1 to 1 of where the player is in relation to
 	 *         the next spot
 	 */
-	public double xOffset(long time) {
-		double val = 0;
-		if (!dir.isNorthSouth()) {
-			System.out.println((time-startTime)/(double)moveTime);
-			val = (time - startTime) / (double)moveTime * (dir.x > 0 ? 1 : -1);
-			//System.out.println("xOffset: " + val);
+	public int xOffset(long time) {
+		if (dir.isNorthSouth()) {
+			return 0;
 		}
-		return val;
-	}
+		double val = (time - startTime) / (double) moveTime
+				* (dir.x > 0 ? 1 : -1);
+		if (dir.isEastWest()) {
+			return (int) (val * Tiles.TILE_WIDTH);
+		} else {
+			return (int) (val*Tiles.HALF_WIDTH);
+		}}
 
 	/**
 	 * See xOffset, same but for
 	 * 
 	 * @return
 	 */
-	public double yOffset(long time) {
-		double val = 0;
-		if (!dir.isEastWest()) {
-			val = (time - startTime) / moveTime * (dir.y > 0 ? 1 : -1);
-			//System.out.println("yOffset: " + val);
+	public int yOffset(long time) {
+		if (dir.isEastWest()) {
+			return 0;
 		}
-		return val;
+		double val = (time - startTime) / moveTime * (dir.y > 0 ? 1 : -1);
+
+		if (dir.isNorthSouth()) {
+			return (int) (val * Tiles.TILE_HEIGHT);
+		} else {
+			return (int) (val * Tiles.HALF_HEIGHT);
+		}
 	}
 }

@@ -45,7 +45,7 @@ public abstract class Entity {
 		dir = newdir;
 	}
 
-	public abstract void render(Graphics mapGraphics, int x, int y, long time);
+	public abstract void render(int x, int y, long time);
 
 	public long getID() {
 		return id;
@@ -64,7 +64,8 @@ public abstract class Entity {
 	public void setAnimation(int ani) {
 		animation = ani;
 	}
-	public void setEvent(Event e){
-		event=e;
+
+	public void setEvent(Event e) {
+		event = e;
 	}
 }
