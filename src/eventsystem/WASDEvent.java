@@ -54,8 +54,9 @@ public class WASDEvent extends Event {
 		if (dir.isEastWest()) {
 			return (int) (val * Tiles.TILE_WIDTH);
 		} else {
-			return (int) (val*Tiles.HALF_WIDTH);
-		}}
+			return (int) (val * Tiles.HALF_WIDTH);
+		}
+	}
 
 	/**
 	 * See xOffset, same but for
@@ -66,7 +67,7 @@ public class WASDEvent extends Event {
 		if (dir.isEastWest()) {
 			return 0;
 		}
-		double val = (time - startTime) / moveTime * (dir.y > 0 ? 1 : -1);
+		double val = (time - startTime) / (double)moveTime * (dir.y > 0 ? 1 : -1);
 
 		if (dir.isNorthSouth()) {
 			return (int) (val * Tiles.TILE_HEIGHT);

@@ -33,7 +33,7 @@ public class Player extends Entity {
 		ArrayList<Animation> walkAnimations = new ArrayList<Animation>();
 		for (int count = 0; count < 8; count++) {
 			walkAnimations.add(new Animation(armorSheet, new int[] { 4, 5, 6,
-					7, 8, 9, 10, 11 }, count, 150));
+					7, 8, 9, 10, 11 }, count, 125));
 		}
 		animations.put(Entity.ACTION_WALKING, walkAnimations);
 

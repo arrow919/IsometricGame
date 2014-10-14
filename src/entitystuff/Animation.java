@@ -17,11 +17,11 @@ public class Animation {
 	 *            Count should divide into runtime evenly
 	 * @param runtime
 	 */
-	public Animation(SpriteSheet sheet, int[] frames, int y, int runtime) {
+	public Animation(SpriteSheet sheet, int[] frames, int line, int runtime) {
 		this.runtime = runtime;
 		this.frames = new ArrayList<Image>();
 		for (int count = 0; count < frames.length; count++) {
-			this.frames.add(sheet.getSprite(frames[count], y));
+			this.frames.add(sheet.getSprite(frames[count], line));
 		}
 	}
 
