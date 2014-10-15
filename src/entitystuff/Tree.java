@@ -7,7 +7,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 public class Tree extends Entity {
-	private static final String TREE_IMAGE = "entitysprites/tree1S.png";
+	private static final String TREE_IMAGE = "res/entitysprites/tree1S.png";
 	private static Image image;
 	static {
 		try {
@@ -26,7 +26,7 @@ public class Tree extends Entity {
 	@Override
 	public void render(int x, int y, long time) {
 		// TODO Figure out the rendering for Tree
-		image.draw(x - 64, y - 64);
+		image.draw(x - 81, y - 180);
 	}
 
 }

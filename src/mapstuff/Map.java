@@ -1,12 +1,7 @@
 package mapstuff;
 
+import java.util.ArrayList;
 import java.util.Iterator;
-
-import main.GameStart;
-
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 
 import entitystuff.Entity;
 import entitystuff.EntityList;
@@ -32,6 +27,7 @@ public class Map {
 		if (baseY < 0) {
 			baseY = 0;
 		}
+		ArrayList<Entity> toRender = new ArrayList<Entity>();
 		for (int curX = baseX; curX <= xLoc + RANGE; curX++) {
 			for (int curY = baseY; curY <= yLoc + RANGE; curY++) {
 				int additionalHeight = 0;
@@ -52,13 +48,14 @@ public class Map {
 						if (en instanceof Player) {
 							en.render(curX, curY, time);
 						} else {
-							en.render(xiso, yiso, time);
+							en.render(xiso-xMoveOffset, yiso-yMoveOffset, time);
 						}
 					}
 				}
 			}
-
+		
 		}
+		
 	}
 
 	/**

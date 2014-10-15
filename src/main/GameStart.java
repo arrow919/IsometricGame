@@ -15,6 +15,7 @@ import org.newdawn.slick.SlickException;
 
 import entitystuff.EntityList;
 import entitystuff.Player;
+import entitystuff.Tree;
 
 public class GameStart extends BasicGame {
 	public static final int WINDOW_WIDTH = 1280, WINDOW_HEIGHT = 640;
@@ -56,6 +57,7 @@ public class GameStart extends BasicGame {
 		EntityList entities = new EntityList(0);
 		Player player = new Player(Direction.SOUTH_WEST, 50, 50);
 		entities.addEntity(player);
+		entities.addEntity(new Tree(Direction.SOUTH_WEST,49, 49));
 		world = new World(new Map(tileTypes), player, entities);
 	}
 
