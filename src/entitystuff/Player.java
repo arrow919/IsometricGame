@@ -9,11 +9,9 @@ import main.GameStart;
 import mapstuff.Direction;
 import mapstuff.World;
 
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SpriteSheet;
 
 import eventsystem.IdleEvent;
-import eventsystem.WASDEvent;
 
 public class Player extends Entity {
 	public static final String KEY_CURRENT_HEALTH = "CURRENT_HEALTH",
@@ -74,35 +72,7 @@ public class Player extends Entity {
 															// move check here
 	}
 
-	private ArrayList<Direction> lastFive = new ArrayList<Direction>();
+	public void wasdInput(Direction dir) {
 
-	public void wasdInput(Direction dir, World world) {
-		for (Direction d : lastFive) {
-			if (!d.equals(dir)) {
-				lastFive.clear();
-				break;
-			}
-		}
-		lastFive.add(dir);
-		if (lastFive.size() > 4) {
-			lastFive.remove(0);
-		}
-		if (lastFive.size() == 4 && canMove(dir, world)) {
-			event = new WASDEvent(this, null, System.currentTimeMillis(), dir);
-		}
-	}
-
-	public int getXOffset(long time) {
-		if (event instanceof WASDEvent) {
-			return ((WASDEvent) event).xOffset(time);
-		}
-		return 0;
-	}
-
-	public int getYOffset(long time) {
-		if (event instanceof WASDEvent) {
-			return ((WASDEvent) event).yOffset(time);
-		}
-		return 0;
 	}
 }
