@@ -80,7 +80,8 @@ public class GameStart extends BasicGame {
 		x += s || d ? 1 : 0;
 		y += s || a ? 1 : 0;
 		if (!(x == 0 && y == 0)) {
-			world.getPlayer().wasdInput(Direction.getDir(x, y));
+			InputWrapper.setDirection(Direction.getDir(x, y));
+			world.getPlayer().wasdInput();
 		}
 	}
 

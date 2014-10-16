@@ -7,11 +7,11 @@ import java.util.HashMap;
 
 import main.GameStart;
 import mapstuff.Direction;
-import mapstuff.World;
 
 import org.newdawn.slick.SpriteSheet;
 
 import eventsystem.IdleEvent;
+import eventsystem.MoveEvent;
 
 public class Player extends Entity {
 	public static final String KEY_CURRENT_HEALTH = "CURRENT_HEALTH",
@@ -62,17 +62,9 @@ public class Player extends Entity {
 						GameStart.WINDOW_HEIGHT / 2 - 100);
 	}
 
-	private boolean canMove(Direction dir, World world) {
-
-		boolean currentEvent = event instanceof IdleEvent;
-		boolean entityAt = world.isEntityAtTile(x + dir.x, y + dir.y);
-		boolean tileWalkable = world.walkable(x, y, dir);
-		return currentEvent && !entityAt && tileWalkable;// TODO Add other
-															// qualifiers to
-															// move check here
-	}
-
-	public void wasdInput(Direction dir) {
-
+	public void wasdInput() {
+		if (event instanceof IdleEvent) {
+			event = new MoveEvent(this, null, System.currentTimeMillis(), null);
+		}
 	}
 }

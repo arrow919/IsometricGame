@@ -18,7 +18,7 @@ public class Direction {
 			NORTH_EAST = new Direction(0, -1), EAST = new Direction(1, -1),
 			SOUTH_EAST = new Direction(1, 0), SOUTH = new Direction(1, 1),
 			SOUTH_WEST = new Direction(0, 1), WEST = new Direction(-1, 1),
-			NORTH_WEST = new Direction(-1, 0);
+			NORTH_WEST = new Direction(-1, 0), NONE = new Direction(0, 0);
 	private static ArrayList<Direction> compass = new ArrayList<Direction>();
 	static {
 		compass.add(WEST);
